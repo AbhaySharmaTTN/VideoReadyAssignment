@@ -7,6 +7,7 @@ import {
   TextInputProps,
 } from 'react-native';
 import { colors } from '../utils/colors';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const CustomTextInput = ({
   label,

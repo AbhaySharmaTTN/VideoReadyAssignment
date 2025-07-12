@@ -14,7 +14,6 @@ import AppButton from './AppButton';
 const SignIn = ({ onSignInPress }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPasswordVisible, togglePasswordVisibility] = useState(false);
 
   return (
     <View style={styles.page}>
@@ -32,7 +31,7 @@ const SignIn = ({ onSignInPress }) => {
         onChangeText={setPassword}
         textInputConfig={{
           autoCapitalize: false,
-          secureTextEntry: !isPasswordVisible,
+          secureTextEntry: true,
         }}
       />
       <AppButton title="Sign In" onPress={onSignInPress} />
