@@ -10,4 +10,8 @@ export const MainRoutes = {
   MAIN_BOTTOM_TABS: 'MainBottomTabs',
   MAIN_STACK: 'MainStack',
   MAIN_DRAWER: 'MainDrawer',
+  HOME: 'Home',
+  MOVIE: 'Movie',
+  KIDS: 'Kids',
+  LIVE_TV: 'LiveTV',
 };

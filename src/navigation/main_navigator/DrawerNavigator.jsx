@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
-import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MainRoutes } from '../../utils/Routes';
 import { colors } from '../../utils/colors';
 import BottomNavigator from './BottomNavigator';
+import { drawerRef } from './drawerRef';
 
 const Drawer = createDrawerNavigator();
 
-const MainNavigator = () => {
+const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -25,6 +25,6 @@ const MainNavigator = () => {
   );
 };
 
-export default MainNavigator;
+export default DrawerNavigator;
 
 const styles = StyleSheet.create({});

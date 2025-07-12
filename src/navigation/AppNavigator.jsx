@@ -1,5 +1,4 @@
-import { View, Text } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AuthNavigator from './AuthNavigator';
@@ -11,7 +10,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <SafeAreaProvider>
-        {!loggedIn ? <MainStack /> : <AuthNavigator />}
+        {loggedIn ? <MainStack /> : <AuthNavigator />}
       </SafeAreaProvider>
     </NavigationContainer>
   );

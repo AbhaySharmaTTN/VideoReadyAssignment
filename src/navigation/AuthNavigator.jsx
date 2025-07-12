@@ -11,8 +11,8 @@ const AuthStack = createStackNavigator();
 const AuthNavigator = () => {
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen name={AuthRoutes.CAROUSEL} component={Carousel} />
       <AuthStack.Screen name={AuthRoutes.LOGIN_SIGNUP} component={LoginSignUp} />
+      <AuthStack.Screen name={AuthRoutes.CAROUSEL} component={Carousel} />
       <AuthStack.Screen
         name={AuthRoutes.EMAIL_PASSWORD}
         component={EmailPasswordUpdate}
