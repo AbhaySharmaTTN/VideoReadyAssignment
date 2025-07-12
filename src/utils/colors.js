@@ -7,4 +7,7 @@ export const colors = {
   textColorBlue: '#2474FF',
   textColorWhite: 'white',
   descriptionTextColor: '#B0B0B0',
+  inputBackground: '#131F31',
+  labelColor: '#51617B',
+  appButtonDisabled: '#2780EA4D',
 };
