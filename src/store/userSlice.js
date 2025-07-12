@@ -8,10 +8,11 @@ const authSlice = createSlice({
     email: '',
     password: '',
     phoneNumber: '',
-    genre: '',
+    genre: [],
     isOnboarded: false,
     error: null,
     users: [],
+    profiles: [],
   },
   reducers: {
     signUp: (state, action) => {
@@ -30,14 +31,15 @@ const authSlice = createSlice({
         return;
       }
 
-      state.users.push({ email, password, name, phoneNumber });
+      state.users.push({ email, password, name, phoneNumber, profiles: [] });
 
       state.name = name;
       state.email = email;
       state.password = password;
       state.phoneNumber = phoneNumber;
-      state.isOnboarded = true;
+      //   state.isOnboarded = true;
       state.isLoggedIn = true;
+      state.profiles = [name];
     },
 
     signIn: (state, action) => {
@@ -69,6 +71,7 @@ const authSlice = createSlice({
       state.genre = user.genre;
       state.isLoggedIn = true;
       state.isOnboarded = true;
+      state.profiles = user.profiles;
     },
 
     updateUserDetails: (state, action) => {
@@ -106,21 +109,56 @@ const authSlice = createSlice({
 
       state.isOnboarded = true;
     },
-    addProfile: (state, action) => {},
+    addProfile: (state, action) => {
+      const { profileName } = action.payload;
+
+      const currUser = state.users.find(u => u.email === state.email);
+
+      if (!currUser) return;
+
+      currUser.profiles.push(profileName);
+      state.profiles = currUser.profiles;
+    },
+
+    removeProfile: (state, action) => {
+      const { profileName } = action.payload;
+
+      const currUser = state.users.find(u => u.email === state.email);
+
+      if (!currUser || !currUser.profiles) return;
+
+      currUser.profiles = currUser.profiles.filter(
+        profile => profile !== profileName,
+      );
+
+      state.profiles = currUser.profiles;
+    },
 
     logOut: state => {
       state.name = '';
       state.email = '';
       state.password = '';
       state.phoneNumber = '';
-      state.genre = '';
+      state.genre = [];
       state.isOnboarded = false;
       state.error = null;
       state.isLoggedIn = false;
+      state.profiles = [];
+    },
+
+    addGenre: (state, action) => {
+      const { genre } = action.payload;
+
+      const currUser = state.users.find(u => u.email === state.email);
+
+      currUser.genre.push(genre), state.genre.push(genre);
     },
 
     clearError: state => {
       state.error = null;
+    },
+    setOnboarding: (state, action) => {
+      state.isOnboarded = true;
     },
   },
 });
@@ -132,6 +170,8 @@ export const {
   logOut,
   setError,
   clearError,
+  addProfile,
+  removeProfile,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, Platform, StyleSheet, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import AppButton from '../../../components/AppButton';
 import CustomTextInput from '../../../components/CustomTextInput';
@@ -24,9 +24,12 @@ const SignUpScreen = () => {
     }
     try {
       setLoading(true);
+      //   if (Platform.OS == 'ios') {
       auth().settings.appVerificationDisabledForTesting = true;
+      //   }
       const phoneNumber = phone.startsWith('+91') ? phone : '+91' + phone;
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      //   console.log(confirmation);
       setConfirm(confirmation);
       Alert.alert('OTP sent');
     } catch (err) {
@@ -46,9 +49,12 @@ const SignUpScreen = () => {
     try {
       setLoading(true);
       await confirm.confirm(code);
-      navigation.navigate(AuthRoutes.EMAIL_PASSWORD, { phoneNumber: phone });
+      navigation.navigate(AuthRoutes.USER_DETAILS_UPDATE, {
+        phoneNumber: phone,
+      });
     } catch (err) {
       setOtpError('Invalid code');
+      console.log(err.message);
     } finally {
       setLoading(false);
     }

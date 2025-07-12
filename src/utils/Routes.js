@@ -5,6 +5,7 @@ export const AuthRoutes = {
 };
 
 export const MainRoutes = {
+  MAIN_GATE: 'MainGateScreen',
   MAIN_BOTTOM_TABS: 'MainBottomTabs',
   MAIN_STACK: 'MainStack',
   MAIN_DRAWER: 'MainDrawer',

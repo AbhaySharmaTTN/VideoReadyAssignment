@@ -3,7 +3,6 @@ import { AuthRoutes } from '../utils/Routes';
 import Carousel from '../screens/auth_stack_screens/Carousel';
 import LoginSignUp from '../screens/auth_stack_screens/auth/LoginSignUp';
 import UserDetailsUpdate from '../screens/auth_stack_screens/UserDetailsUpdate';
-import WhoIsWatching from '../screens/auth_stack_screens/WhoIsWatching';
 import { colors } from '../utils/colors';
 
 const AuthStack = createStackNavigator();

@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
-  //   persistor.purge();
+//   persistor.purge();
   return (
     <SafeAreaProvider>
       <Provider store={store}>
