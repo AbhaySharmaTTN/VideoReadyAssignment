@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
   name: 'user',
   initialState: {
+    isLoggedIn: false,
     name: '',
     email: '',
     password: '',
@@ -35,8 +36,8 @@ const authSlice = createSlice({
       state.email = email;
       state.password = password;
       state.phoneNumber = phoneNumber;
-      state.genre = genre;
       state.isOnboarded = true;
+      state.isLoggedIn = true;
     },
 
     signIn: (state, action) => {
@@ -66,6 +67,7 @@ const authSlice = createSlice({
       state.password = user.password;
       state.phoneNumber = user.phoneNumber;
       state.genre = user.genre;
+      state.isLoggedIn = true;
       state.isOnboarded = true;
     },
 
@@ -104,6 +106,7 @@ const authSlice = createSlice({
 
       state.isOnboarded = true;
     },
+    addProfile: (state, action) => {},
 
     logOut: state => {
       state.name = '';
@@ -113,10 +116,7 @@ const authSlice = createSlice({
       state.genre = '';
       state.isOnboarded = false;
       state.error = null;
-    },
-
-    setError: (state, action) => {
-      state.error = action.payload;
+      state.isLoggedIn = false;
     },
 
     clearError: state => {

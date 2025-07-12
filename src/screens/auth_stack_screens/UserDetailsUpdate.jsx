@@ -5,23 +5,27 @@ import CustomTextInput from '../../components/CustomTextInput';
 import { colors } from '../../utils/colors';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AppButton from '../../components/AppButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUp } from '../../store/userSlice';
 
 const UserDetailsUpdate = () => {
+  const dispatch = useDispatch();
   const route = useRoute();
+
+  const phoneNumber = route.params?.phoneNumber;
+  const errorMessageFromState = useSelector(state => state.user.error);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  //   const dispatch = useDispatch();
-  const navigation = useNavigation();
-
   function handleCreateAccount() {
     if (!email || !password || !name) {
-      setError('Name, Email Password fields are required');
+      setError('Name, Email and Password fields are required');
       return;
     }
+    dispatch(signUp({ name, email, phoneNumber, password }));
   }
 
   return (
@@ -48,7 +52,7 @@ const UserDetailsUpdate = () => {
           }}
           error={error}
         />
-        <CustomTextInput value={route.params?.phoneNumber} editable={false} />
+        <CustomTextInput value={phoneNumber} editable={false} />
         <CustomTextInput
           value={password}
           onChangeText={setPassword}
@@ -59,6 +63,7 @@ const UserDetailsUpdate = () => {
           error={error}
         />
       </View>
+      <Text>{errorMessageFromState ? errorMessageFromState : ''}</Text>
       <AppButton
         title="Create Account"
         onPress={handleCreateAccount}

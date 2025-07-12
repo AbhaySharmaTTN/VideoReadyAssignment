@@ -1,9 +1,7 @@
 export const AuthRoutes = {
   CAROUSEL: 'Carousel',
   LOGIN_SIGNUP: 'LoginSignup',
-  EMAIL_PASSWORD: 'Email_Password',
-  WHO_IS_WATCHING: 'WhoIsWatching',
-  GENRE: 'Genre',
+  USER_DETAILS_UPDATE: 'UserDetailsUpdate',
 };
 
 export const MainRoutes = {
@@ -14,4 +12,6 @@ export const MainRoutes = {
   MOVIE: 'Movie',
   KIDS: 'Kids',
   LIVE_TV: 'LiveTV',
+  WHO_IS_WATCHING: 'WhoIsWatching',
+  GENRE: 'Genre',
 };
