@@ -1,39 +1,21 @@
-import {
-  ActivityIndicator,
-  Alert,
-  Button,
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from 'react-native';
-import React, { useState } from 'react';
-import auth from '@react-native-firebase/auth';
+import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { colors } from '../../utils/colors';
-import SignInSignUpTabSlider from '../../components/SignInSignUpTabSlider';
+import SignInSignUpTabSlider from './SignInSignUpTabSlider';
 
 const LoginSignUp = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.logoContainer}>
         <Image
-          source={require('../../../assets/video_ready_text.png')}
+          source={require('../../../../assets/video_ready_text.png')}
           style={styles.videoReadyTextImage}
           resizeMode="contain"
         />
       </View>
 
       <SignInSignUpTabSlider
-        onSignInPress={() => {
-          Alert.alert('hello');
-        }}
-        onSignUpPress={() => {
-          Alert.alert('hello');
-        }}
+        onSignInPress={() => {}}
+        onSignUpPress={() => {}}
       />
     </SafeAreaView>
   );

@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthRoutes } from '../utils/Routes';
 import Carousel from '../screens/auth_stack_screens/Carousel';
-import LoginSignUp from '../screens/auth_stack_screens/LoginSignUp';
+import LoginSignUp from '../screens/auth_stack_screens/auth/LoginSignUp';
 import EmailPasswordUpdate from '../screens/auth_stack_screens/EmailPasswordUpdate';
 import WhoIsWatching from '../screens/auth_stack_screens/WhoIsWatching';
 import Genre from '../screens/auth_stack_screens/Genre';

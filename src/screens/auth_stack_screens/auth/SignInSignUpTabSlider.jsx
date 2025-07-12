@@ -7,9 +7,9 @@ import {
   View,
 } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { colors } from '../utils/colors';
-import CustomTextInput from './CustomTextInput';
-import AppButton from './AppButton';
+import { colors } from '../../../utils/colors';
+import CustomTextInput from '../../../components/CustomTextInput';
+import AppButton from '../../../components/AppButton';
 
 const SignIn = ({ onSignInPress }) => {
   const [email, setEmail] = useState('');
