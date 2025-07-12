@@ -32,7 +32,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color, size }) => {
             return (
               <Image
-                source={require('../../../assests/home.png')}
+                source={require('../../../assets/home.png')}
                 tintColor={color}
                 width={20}
                 height={20}
@@ -48,7 +48,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color, size }) => {
             return (
               <Image
-                source={require('../../../assests/movie.png')}
+                source={require('../../../assets/movie.png')}
                 tintColor={color}
                 width={20}
                 height={20}
@@ -64,7 +64,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color, size }) => {
             return (
               <Image
-                source={require('../../../assests/kids.png')}
+                source={require('../../../assets/kids.png')}
                 tintColor={color}
                 width={20}
                 height={20}
@@ -80,7 +80,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({ color, size }) => {
             return (
               <Image
-                source={require('../../../assests/live_tv.png')}
+                source={require('../../../assets/live_tv.png')}
                 tintColor={color}
                 width={20}
                 height={20}
