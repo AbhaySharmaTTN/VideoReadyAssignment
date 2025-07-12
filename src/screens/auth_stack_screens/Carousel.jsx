@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   View,
   Image,
@@ -11,6 +11,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../utils/colors';
+import { useNavigation } from '@react-navigation/native';
+import { AuthRoutes } from '../../utils/Routes';
 
 const { width, height } = Dimensions.get('window');
 
@@ -38,12 +40,25 @@ const carouselItems = [
 const Carousel = () => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigation = useNavigation();
 
   const goToNextPage = () => {
-    let nextIndex = (currentIndex + 1) % carouselItems.length;
-    flatListRef.current?.scrollToIndex({ index: nextIndex, animated: false });
-    setCurrentIndex(nextIndex);
+    setCurrentIndex(prevIndex => {
+      const nextIndex = (prevIndex + 1) % carouselItems.length;
+      flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
+      return nextIndex;
+    });
   };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      goToNextPage();
+    }, 3000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -51,7 +66,7 @@ const Carousel = () => {
         <FlatList
           ref={flatListRef}
           data={carouselItems}
-          keyExtractor={index => index.toString()}
+          keyExtractor={(item, index) => item.imageUri + index}
           renderItem={({ item }) => (
             <CarouselItem
               title={item.title}
@@ -72,10 +87,16 @@ const Carousel = () => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button} onPress={goToNextPage}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.replace(AuthRoutes.LOGIN_SIGNUP)}
+        >
           <Text style={styles.buttonText}>GET ENTERTAINED</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.skipButton}>
+        <TouchableOpacity
+          style={styles.skipButton}
+          onPress={() => navigation.replace(AuthRoutes.LOGIN_SIGNUP)}
+        >
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
