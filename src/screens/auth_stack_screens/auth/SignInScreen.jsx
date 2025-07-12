@@ -9,10 +9,16 @@ const SignInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const [error, setError] = useState(false);
 
   const handleSignIn = () => {
-    console.log('Sign In:', email, password);
+    if (!email || !password) {
+      setError(true);
+      return;
+    }
   };
+
+  // use useEffect to check for error from state
 
   return (
     <View style={styles.page}>
@@ -20,12 +26,14 @@ const SignInScreen = () => {
         label="Email / Mobile Number"
         value={email}
         onChangeText={setEmail}
+        error={error}
       />
       <CustomTextInput
         label="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        error={error}
       />
       <AppButton title="Sign In" onPress={handleSignIn} />
       <TouchableOpacity>
@@ -40,12 +48,12 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    alignItems: 'center',
     padding: 20,
     paddingTop: 50,
   },
   forgotPasswordText: {
     color: colors.textColorBlue,
     paddingVertical: 12,
+    alignSelf: 'center',
   },
 });

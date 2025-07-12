@@ -10,4 +10,6 @@ export const colors = {
   inputBackground: '#131F31',
   labelColor: '#51617B',
   appButtonDisabled: '#2780EA4D',
+  errorColor: 'red',
+  placeholderTextColor: '#51617B',
 };

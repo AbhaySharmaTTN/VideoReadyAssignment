@@ -11,31 +11,44 @@ const SignUpScreen = () => {
   const [code, setCode] = useState('');
   const [confirm, setConfirm] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
+  const [otpError, setOtpError] = useState(false);
 
   const navigation = useNavigation();
 
   const sendOTP = async () => {
+    setPhoneError('');
+    if (!phone) {
+      setPhoneError('Phone number cannot be empty');
+      return;
+    }
     try {
       setLoading(true);
       auth().settings.appVerificationDisabledForTesting = true;
-      const confirmation = await auth().signInWithPhoneNumber(phone);
+      const phoneNumber = phone.startsWith('+91') ? phone : '+91' + phone;
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
       setConfirm(confirmation);
       Alert.alert('OTP sent');
     } catch (err) {
-      Alert.alert('Error sending OTP', err.message);
+      Alert.alert('Error sending OTP');
+      setPhoneError('Make sure the number you entered is correct');
     } finally {
       setLoading(false);
     }
   };
 
   const verifyCode = async () => {
+    setOtpError('');
+    if (!code) {
+      setOtpError('Otp cannot be empty');
+      return;
+    }
     try {
       setLoading(true);
       await confirm.confirm(code);
-      Alert.alert('Phone Verified!');
-      navigation.navigate(AuthRoutes.EMAIL_PASSWORD);
+      navigation.navigate(AuthRoutes.EMAIL_PASSWORD, { phoneNumber: phone });
     } catch (err) {
-      Alert.alert('Invalid code');
+      setOtpError('Invalid code');
     } finally {
       setLoading(false);
     }
@@ -48,6 +61,8 @@ const SignUpScreen = () => {
         value={phone}
         onChangeText={setPhone}
         keyboardType="phone-pad"
+        showErrorText={true}
+        error={phoneError}
       />
       {confirm && (
         <CustomTextInput
@@ -55,6 +70,8 @@ const SignUpScreen = () => {
           value={code}
           onChangeText={setCode}
           keyboardType="number-pad"
+          showErrorText={true}
+          error={otpError}
         />
       )}
       <AppButton
@@ -71,7 +88,6 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    alignItems: 'center',
     padding: 20,
     paddingTop: 50,
   },

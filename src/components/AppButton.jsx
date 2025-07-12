@@ -26,7 +26,7 @@ export default AppButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: '100%',
+    width: 'auto',
     backgroundColor: colors.appButton,
     paddingVertical: 14,
     borderRadius: 6,

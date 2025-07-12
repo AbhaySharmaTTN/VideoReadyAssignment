@@ -7,7 +7,6 @@ import {
   TextInputProps,
 } from 'react-native';
 import { colors } from '../utils/colors';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const CustomTextInput = ({
   label,
@@ -16,18 +15,27 @@ const CustomTextInput = ({
   error,
   style,
   textInputConfig,
+  showErrorText = false,
+  editable = true,
 }) => {
   return (
     <View style={[styles.container, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && (
+        <Text style={[styles.label, error && styles.labelError]}>{label}</Text>
+      )}
       <TextInput
-        style={[styles.input, error && styles.inputError]}
+        style={[
+          styles.input,
+          error && styles.inputError,
+          !editable && styles.disabledInput,
+        ]}
         value={value}
         onChangeText={onChangeText}
         {...textInputConfig}
+        editable={editable}
       />
-      
-      {error && <Text style={styles.errorText}>{error}</Text>}
+
+      {error && showErrorText && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -45,6 +53,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     letterSpacing: 1,
   },
+  labelError: {
+    color: 'red',
+  },
   input: {
     backgroundColor: colors.inputBackground,
     paddingVertical: 16,
@@ -52,6 +63,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     color: colors.textColorWhite,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   inputError: {
     borderColor: 'red',
@@ -60,5 +73,8 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 12,
     marginTop: 4,
+  },
+  disabledInput: {
+    color: '#889dc0',
   },
 });
