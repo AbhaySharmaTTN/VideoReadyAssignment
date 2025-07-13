@@ -50,7 +50,13 @@ const HomePage = () => {
               <Text style={styles.iconText}>More Details</Text>
             </TouchableOpacity>
 
-            <AppButton title="Watch Now" style={styles.watchNow} />
+            <AppButton
+              title="Watch Now"
+              style={styles.watchNow}
+              icon="play-arrow"
+              iconColor={colors.textColorWhite}
+              iconSize={20}
+            />
 
             <TouchableOpacity style={styles.iconButton}>
               <Icon name="playlist-add" style={styles.icon} />

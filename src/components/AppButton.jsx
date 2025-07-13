@@ -1,7 +1,18 @@
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { colors } from '../utils/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const AppButton = ({ title, onPress, style, textStyle, disabled }) => {
+const AppButton = ({
+  title,
+  onPress,
+  style,
+  textStyle,
+  disabled,
+  icon,
+  iconSize,
+  iconColor,
+  iconStyle,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -9,7 +20,17 @@ const AppButton = ({ title, onPress, style, textStyle, disabled }) => {
       activeOpacity={0.7}
       disabled={disabled}
     >
-      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      <View style={styles.iconAndTextContainer}>
+        {icon && (
+          <Icon
+            name={icon}
+            size={iconSize}
+            color={iconColor}
+            style={iconStyle}
+          />
+        )}
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -32,5 +53,10 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: colors.appButtonDisabled,
+  },
+  iconAndTextContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
