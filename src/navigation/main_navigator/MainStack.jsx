@@ -6,6 +6,8 @@ import VideoReadyHeader from '../../components/VideoReadyHeader';
 import MainGateScreen from '../../screens/main_screens/MainGateScreen';
 import Genre from '../../screens/main_screens/Genre';
 import WhoIsWatching from '../../screens/main_screens/WhoIsWatching';
+import Downloads from '../../screens/main_screens/Downloads';
+import Profiles from '../../screens/main_screens/Profiles';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,7 @@ const MainStack = () => {
         name={MainRoutes.WHO_IS_WATCHING}
         component={WhoIsWatching}
       />
+      <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
     </Stack.Navigator>
   );
 };

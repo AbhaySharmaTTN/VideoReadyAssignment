@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { containerRef } from '../navigation/main_navigator/drawerRef';
 import { DrawerActions } from '@react-navigation/native';
 
-const VideoReadyHeader = () => {
+const VideoReadyHeader = ({ disableDrawer = false }) => {
   return (
     <SafeAreaView edges={['top']} style={styles.safeArea}>
       <View style={styles.headerContainer}>
@@ -20,7 +20,9 @@ const VideoReadyHeader = () => {
           <Icon name="notifications" style={styles.icon} />
           <TouchableOpacity
             onPress={() => {
-              containerRef.current?.dispatch(DrawerActions.openDrawer());
+              if (!disableDrawer) {
+                containerRef.current?.dispatch(DrawerActions.openDrawer());
+              }
             }}
           >
             <Image

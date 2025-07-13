@@ -15,4 +15,6 @@ export const MainRoutes = {
   LIVE_TV: 'LiveTV',
   WHO_IS_WATCHING: 'WhoIsWatching',
   GENRE: 'Genre',
+  DOWNLOADS: 'Downloads',
+  PROFILES: 'Profiles',
 };
