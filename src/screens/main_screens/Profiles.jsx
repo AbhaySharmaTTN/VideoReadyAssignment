@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   genreAddBox: {
     width: gridItemSize,
     height: gridItemSize,
-    backgroundColor: '#101820',
+    backgroundColor: '#122436',
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',

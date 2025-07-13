@@ -111,6 +111,7 @@ const Genre = () => {
   const handleConfirmButton = () => {
     const checkedGenres = genreList.filter(gen => gen.isChecked);
     dispatch(setGenre({ genre: checkedGenres }));
+    navigation.replace(MainRoutes.MAIN_BOTTOM_TABS)
   };
 
   return (

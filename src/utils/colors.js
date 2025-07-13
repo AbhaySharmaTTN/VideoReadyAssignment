@@ -13,4 +13,5 @@ export const colors = {
   errorColor: 'red',
   placeholderTextColor: '#51617B',
   appHeaderColor: '#000B15',
+  bottomSheetBackgroundColor: '#0B1C34',
 };
