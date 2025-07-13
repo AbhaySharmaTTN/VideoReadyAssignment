@@ -13,31 +13,21 @@ const MainStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         cardStyle: {
           backgroundColor: colors.appBackground,
         },
         headerStyle: {
           backgroundColor: colors.appBackground,
         },
-        header: () => <VideoReadyHeader />,
       }}
     >
-      <Stack.Screen
-        name={MainRoutes.MAIN_GATE}
-        component={MainGateScreen}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} />
       <Stack.Screen name={MainRoutes.MAIN_DRAWER} component={DrawerNavigator} />
-      <Stack.Screen
-        name={MainRoutes.GENRE}
-        component={Genre}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name={MainRoutes.GENRE} component={Genre} />
       <Stack.Screen
         name={MainRoutes.WHO_IS_WATCHING}
         component={WhoIsWatching}
-        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

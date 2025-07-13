@@ -1,12 +1,4 @@
-// components/AppButton.js
-import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { colors } from '../utils/colors';
 
 const AppButton = ({ title, onPress, style, textStyle, disabled }) => {
@@ -28,7 +20,7 @@ const styles = StyleSheet.create({
   button: {
     width: 'auto',
     backgroundColor: colors.appButton,
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderRadius: 6,
     alignItems: 'center',
     marginBottom: 12,

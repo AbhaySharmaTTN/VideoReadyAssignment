@@ -1,3 +1,3 @@
 import { createNavigationContainerRef } from '@react-navigation/native';
 
-export const drawerRef = createNavigationContainerRef();
+export const containerRef = createNavigationContainerRef();

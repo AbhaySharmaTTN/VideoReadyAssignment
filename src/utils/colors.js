@@ -12,4 +12,5 @@ export const colors = {
   appButtonDisabled: '#2780EA4D',
   errorColor: 'red',
   placeholderTextColor: '#51617B',
+  appHeaderColor: '#000B15',
 };

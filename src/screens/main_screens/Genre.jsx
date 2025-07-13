@@ -15,6 +15,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useState } from 'react';
 import AppButton from '../../components/AppButton';
 import { setGenre } from '../../store/userSlice';
+import { useNavigation } from '@react-navigation/native';
+import { MainRoutes } from '../../utils/Routes';
 
 const genres = [
   {
@@ -96,6 +98,7 @@ const genres = [
 
 const Genre = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [genreList, setGenreList] = useState(genres);
 
@@ -113,7 +116,9 @@ const Genre = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.replace(MainRoutes.MAIN_DRAWER)}
+        >
           <Icon name="arrow-back" size={30} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.headerText}>Genre</Text>

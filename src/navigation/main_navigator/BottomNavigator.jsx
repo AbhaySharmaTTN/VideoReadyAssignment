@@ -6,6 +6,7 @@ import Kids from '../../screens/main_screens/Kids';
 import LiveTV from '../../screens/main_screens/LiveTV';
 import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
+import VideoReadyHeader from '../../components/VideoReadyHeader';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,6 @@ const BottomNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         sceneStyle: {
           backgroundColor: colors.appBackground,
         },
@@ -23,6 +23,7 @@ const BottomNavigator = () => {
         },
         tabBarActiveTintColor: colors.tabBarActiveTintColor,
         tabBarInactiveTintColor: colors.tabBarInactiveTintColor,
+        header: () => <VideoReadyHeader />,
       }}
     >
       <Tab.Screen
