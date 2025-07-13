@@ -11,6 +11,8 @@ import {
 import { colors } from '../../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AppButton from '../../components/AppButton';
+import { useNavigation } from '@react-navigation/native';
+import { MainRoutes } from '../../utils/Routes';
 
 const movieTitlesForList = [
   {
@@ -32,7 +34,11 @@ const movieTitlesForList = [
 ];
 
 const HomePage = () => {
-  function onMovieTilePress() {}
+  const navigation = useNavigation();
+
+  function onMovieTilePress() {
+    navigation.navigate(MainRoutes.VIDEO_DETAILS);
+  }
 
   return (
     <ScrollView style={styles.mainContainer}>
@@ -56,6 +62,7 @@ const HomePage = () => {
               icon="play-arrow"
               iconColor={colors.textColorWhite}
               iconSize={20}
+              onPress={onMovieTilePress}
             />
 
             <TouchableOpacity style={styles.iconButton}>

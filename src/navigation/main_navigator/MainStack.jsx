@@ -35,7 +35,10 @@ const MainStack = () => {
         component={WhoIsWatching}
       />
       <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
-      <Stack.Screen name={MainRoutes.EDIT_USER_DETAILS} component={EditUserProfile} />
+      <Stack.Screen
+        name={MainRoutes.EDIT_USER_DETAILS}
+        component={EditUserProfile}
+      />
       <Stack.Screen name={MainRoutes.VIDEO_DETAILS} component={VideoDetails} />
     </Stack.Navigator>
   );

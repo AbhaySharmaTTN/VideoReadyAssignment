@@ -6,6 +6,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { updateUserDetails } from '../../store/userSlice';
 // import { colors } from '../../utils/colors';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 
 // const EditUserProfile = () => {
 //   const dispatch = useDispatch();
@@ -41,7 +42,7 @@
 //   };
 
 //   return (
-//     <View style={styles.container}>
+//     <SafeAreaView style={styles.container}>
 //       <TouchableOpacity style={styles.imageContainer} onPress={handleImagePick}>
 //         {image ? (
 //           <Image source={{ uri: image }} style={styles.profileImage} />
@@ -74,7 +75,7 @@
 //       />
 
 //       <AppButton title="Save Changes" onPress={handleSave} />
-//     </View>
+//     </SafeAreaView>
 //   );
 // };
 
