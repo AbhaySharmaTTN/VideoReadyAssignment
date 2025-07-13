@@ -8,6 +8,8 @@ import Genre from '../../screens/main_screens/Genre';
 import WhoIsWatching from '../../screens/main_screens/WhoIsWatching';
 import Downloads from '../../screens/main_screens/Downloads';
 import Profiles from '../../screens/main_screens/Profiles';
+import EditUserProfile from '../../screens/main_screens/EditUserProfile';
+import VideoDetails from '../../screens/main_screens/VideoDetails';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +35,8 @@ const MainStack = () => {
         component={WhoIsWatching}
       />
       <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
+      <Stack.Screen name={MainRoutes.EDIT_USER_DETAILS} component={EditUserProfile} />
+      <Stack.Screen name={MainRoutes.VIDEO_DETAILS} component={VideoDetails} />
     </Stack.Navigator>
   );
 };

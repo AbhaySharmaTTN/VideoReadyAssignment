@@ -52,28 +52,9 @@ const Downloads = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => <DownloadHeader />,
+      header: () => <DownloadHeader navigation={navigation} />,
     });
   }, [navigation]);
-
-  function onBackPress() {
-    navigation.goBack();
-  }
-
-  const DownloadHeader = () => {
-    return (
-      <SafeAreaView edges={['top']} style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onBackPress}
-          style={styles.headerIcon}
-        >
-          <Icon name="arrow-back" style={styles.headerIcon} />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Downloaded</Text>
-      </SafeAreaView>
-    );
-  };
 
   const handleOpenBottomSheet = useCallback(id => {
     setSelectedMovie(id);
@@ -159,6 +140,24 @@ const MovieItem = ({ item, onMenuClick }) => {
         <Icon name="more-vert" style={styles.icon} />
       </TouchableOpacity>
     </View>
+  );
+};
+
+const DownloadHeader = ({ navigation }) => {
+  function onBackPress() {
+    navigation.goBack();
+  }
+  return (
+    <SafeAreaView edges={['top']} style={styles.header}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onBackPress}
+        style={styles.headerIcon}
+      >
+        <Icon name="arrow-back" style={styles.headerIcon} />
+      </TouchableOpacity>
+      <Text style={styles.headerText}>Downloaded</Text>
+    </SafeAreaView>
   );
 };
 

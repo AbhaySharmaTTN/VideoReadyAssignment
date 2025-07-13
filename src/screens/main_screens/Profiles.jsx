@@ -26,7 +26,9 @@ const Profiles = () => {
   const genre = useSelector(state => state.user.genre);
   const profileNames = useSelector(state => state.user.profiles);
 
-  function onEditProfilePress() {}
+  function onEditProfilePress() {
+    navigation.navigate(MainRoutes.EDIT_USER_DETAILS);
+  }
 
   function onProfileClick() {
     navigation.navigate(MainRoutes.MAIN_BOTTOM_TABS);

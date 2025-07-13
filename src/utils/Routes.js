@@ -17,4 +17,6 @@ export const MainRoutes = {
   GENRE: 'Genre',
   DOWNLOADS: 'Downloads',
   PROFILES: 'Profiles',
+  EDIT_USER_DETAILS: 'EditUserDetails',
+  VIDEO_DETAILS: 'VideoDetails',
 };
