@@ -22,6 +22,7 @@ const MainStack = () => {
         headerStyle: {
           backgroundColor: colors.appBackground,
         },
+        header: () => <VideoReadyHeader />,
       }}
     >
       <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} />

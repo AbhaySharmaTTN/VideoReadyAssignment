@@ -16,7 +16,7 @@ const MainGateScreen = () => {
       } else if (profiles.length > 1) {
         navigation.replace(MainRoutes.WHO_IS_WATCHING);
       } else {
-        navigation.navigate(MainRoutes.MAIN_DRAWER);
+        navigation.replace(MainRoutes.MAIN_DRAWER);
       }
     }, 100);
   }, [genre, profiles]);
