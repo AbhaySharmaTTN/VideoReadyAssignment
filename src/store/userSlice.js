@@ -31,7 +31,14 @@ const authSlice = createSlice({
         return;
       }
 
-      state.users.push({ email, password, name, phoneNumber, profiles: [] });
+      state.users.push({
+        email,
+        password,
+        name,
+        phoneNumber,
+        profiles: [],
+        genre: [],
+      });
 
       state.name = name;
       state.email = email;
@@ -109,6 +116,15 @@ const authSlice = createSlice({
 
       state.isOnboarded = true;
     },
+    setGenre: (state, action) => {
+      const { genre } = action.payload;
+
+      const currUser = state.users.find(u => u.email === state.email);
+      currUser.genre = genre;
+      state.genre = genre;
+      console.log(state.genre);
+    },
+
     addProfile: (state, action) => {
       const { profileName } = action.payload;
 
@@ -172,6 +188,7 @@ export const {
   clearError,
   addProfile,
   removeProfile,
+  setGenre,
 } = authSlice.actions;
 
 export default authSlice.reducer;

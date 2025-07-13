@@ -18,7 +18,7 @@ const MainGateScreen = () => {
       } else {
         navigation.navigate(MainRoutes.MAIN_DRAWER);
       }
-    }, 500); // try later on after uninstalling the app
+    }, 100);
   }, [genre, profiles]);
 
   return (

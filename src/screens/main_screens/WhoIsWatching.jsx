@@ -15,6 +15,7 @@ import { colors } from '../../utils/colors';
 import { addProfile, removeProfile } from '../../store/userSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { MainRoutes } from '../../utils/Routes';
 
 const screenWidth = Dimensions.get('window').width;
 const itemSize = screenWidth / 2 - 20;
@@ -32,6 +33,10 @@ const WhoIsWatching = () => {
 
   const addProfileHandler = () => {
     dispatch(addProfile({ profileName: 'Abhay' }));
+  };
+
+  const openProfile = () => {
+    navigation.navigate(MainRoutes.MAIN_DRAWER);
   };
 
   const renderItem = ({ item }) => {
@@ -55,6 +60,7 @@ const WhoIsWatching = () => {
         item={item}
         onDelete={() => handleDeleteProfile(item)}
         editMode={editMode}
+        onClick={openProfile}
       />
     );
   };
@@ -84,10 +90,10 @@ const WhoIsWatching = () => {
 
 export default WhoIsWatching;
 
-const ProfileItem = React.memo(({ item, editMode, onDelete }) => {
+const ProfileItem = React.memo(({ item, editMode, onDelete, onClick }) => {
   return (
     <View style={styles.itemContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onClick}>
         <Image
           source={require('../../../assets/profileIcon.png')}
           style={styles.avatar}
