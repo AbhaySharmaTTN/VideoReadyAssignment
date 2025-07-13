@@ -14,7 +14,7 @@ import { colors } from '../../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useState } from 'react';
 import AppButton from '../../components/AppButton';
-import { setGenre } from '../../store/userSlice';
+import { setGenre, setOnboarding } from '../../store/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
 
@@ -110,8 +110,9 @@ const Genre = () => {
 
   const handleConfirmButton = () => {
     const checkedGenres = genreList.filter(gen => gen.isChecked);
+    dispatch(setOnboarding());
     dispatch(setGenre({ genre: checkedGenres }));
-    navigation.replace(MainRoutes.MAIN_BOTTOM_TABS)
+    navigation.replace(MainRoutes.MAIN_BOTTOM_TABS);
   };
 
   return (

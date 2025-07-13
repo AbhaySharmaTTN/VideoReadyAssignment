@@ -13,6 +13,7 @@ const authSlice = createSlice({
     error: null,
     users: [],
     profiles: [],
+    profileImage: null,
   },
   reducers: {
     signUp: (state, action) => {
@@ -92,7 +93,6 @@ const authSlice = createSlice({
         return;
       }
 
-      // Step 2: If changing email, ensure new email is not already taken
       if (newEmail !== user.email) {
         const emailTaken = state.users.some(u => u.email === newEmail);
         if (emailTaken) {
@@ -103,7 +103,6 @@ const authSlice = createSlice({
         state.email = newEmail;
       }
 
-      // Step 3: Update other fields
       if (name !== undefined) {
         user.name = name;
         state.name = name;
@@ -113,8 +112,6 @@ const authSlice = createSlice({
         user.password = password;
         state.password = password;
       }
-
-      state.isOnboarded = true;
     },
     setGenre: (state, action) => {
       const { genre } = action.payload;
@@ -149,6 +146,14 @@ const authSlice = createSlice({
 
       state.profiles = currUser.profiles;
     },
+    setProfileImage: (state, action) => {
+      const { image } = action.payload;
+      state.profileImage = image;
+    },
+
+    setOnboarding: state => {
+      state.isOnboarded = true;
+    },
 
     logOut: state => {
       state.name = '';
@@ -160,6 +165,7 @@ const authSlice = createSlice({
       state.error = null;
       state.isLoggedIn = false;
       state.profiles = [];
+      state.profileImage = null;
     },
 
     addGenre: (state, action) => {
@@ -189,6 +195,8 @@ export const {
   addProfile,
   removeProfile,
   setGenre,
+  setOnboarding,
+  setProfileImage,
 } = authSlice.actions;
 
 export default authSlice.reducer;

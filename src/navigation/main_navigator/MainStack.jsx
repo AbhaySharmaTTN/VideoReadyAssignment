@@ -10,10 +10,14 @@ import Downloads from '../../screens/main_screens/Downloads';
 import Profiles from '../../screens/main_screens/Profiles';
 import EditUserProfile from '../../screens/main_screens/EditUserProfile';
 import VideoDetails from '../../screens/main_screens/VideoDetails';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 
 const MainStack = () => {
+  const isOnboarded = useSelector(state => state.user.isOnboarded);
+  const profiles = useSelector(state => state.user.profiles);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,16 +28,21 @@ const MainStack = () => {
         headerStyle: {
           backgroundColor: colors.appBackground,
         },
-        header: () => <VideoReadyHeader />,
       }}
+      
     >
-      <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} />
+      {!isOnboarded && (
+        <Stack.Screen name={MainRoutes.GENRE} component={Genre} />
+      )}
+      {/* <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} /> */}
+      {profiles.length > 1 && (
+        <Stack.Screen
+          name={MainRoutes.WHO_IS_WATCHING}
+          component={WhoIsWatching}
+        />
+      )}
       <Stack.Screen name={MainRoutes.MAIN_DRAWER} component={DrawerNavigator} />
-      <Stack.Screen name={MainRoutes.GENRE} component={Genre} />
-      <Stack.Screen
-        name={MainRoutes.WHO_IS_WATCHING}
-        component={WhoIsWatching}
-      />
+
       <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
       <Stack.Screen
         name={MainRoutes.EDIT_USER_DETAILS}

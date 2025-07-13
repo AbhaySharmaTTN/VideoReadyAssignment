@@ -7,15 +7,17 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { addProfile } from '../../store/userSlice';
 
 const Profiles = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -23,8 +25,11 @@ const Profiles = () => {
     });
   }, [navigation]);
 
-  const genre = useSelector(state => state.user.genre);
+  const genre = useSelector(state => {
+    return [...state.user.genre, 'Add new'];
+  });
   const profileNames = useSelector(state => state.user.profiles);
+  const [num, setNum] = useState(0);
 
   function onEditProfilePress() {
     navigation.navigate(MainRoutes.EDIT_USER_DETAILS);
@@ -36,6 +41,11 @@ const Profiles = () => {
 
   function onBackIconPress() {
     navigation.goBack();
+  }
+
+  function onAddProfile() {
+    dispatch(addProfile({ profileName: 'Abhay' + num }));
+    setNum(prev => prev + 1);
   }
 
   return (
@@ -66,7 +76,7 @@ const Profiles = () => {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity style={styles.itemContainer}>
+        <TouchableOpacity style={styles.itemContainer} onPress={onAddProfile}>
           <Image
             source={require('../../../assets/add.png')}
             style={styles.avatar}
@@ -87,22 +97,27 @@ const Profiles = () => {
         keyExtractor={(item, index) => item + index}
         numColumns={3}
         contentContainerStyle={styles.genreGrid}
-        renderItem={({ item }) => (
-          <View style={styles.genreCard}>
-            <Image
-              source={item.image}
-              style={styles.genreImage}
-              resizeMode="cover"
-            />
-            <Text style={styles.genreText}>{item.title}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => {
+          return (
+            <View>
+              {item === 'Add new' ? (
+                <TouchableOpacity style={styles.genreAddBox}>
+                  <Text style={styles.addIcon}>+</Text>
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.genreCard}>
+                  <Image
+                    source={item.image}
+                    style={styles.genreImage}
+                    resizeMode="cover"
+                  />
+                  <Text style={styles.genreText}>{item.title}</Text>
+                </View>
+              )}
+            </View>
+          );
+        }}
         columnWrapperStyle={{ gap: 10 }}
-        ListFooterComponent={
-          <TouchableOpacity style={styles.genreAddBox}>
-            <Text style={styles.addIcon}>+</Text>
-          </TouchableOpacity>
-        }
       />
     </View>
   );
@@ -188,10 +203,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   genreAddBox: {
-    width: gridItemSize,
-    height: gridItemSize,
+    width: gridItemSize / 2,
+    height: gridItemSize / 2,
     backgroundColor: '#122436',
-    borderRadius: 8,
+    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },

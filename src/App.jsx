@@ -6,7 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 
 const App = () => {
-  //   persistor.purge();
+    // persistor.purge();
   return (
     <SafeAreaProvider>
       <Provider store={store}>
