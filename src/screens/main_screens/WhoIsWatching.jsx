@@ -32,7 +32,8 @@ const WhoIsWatching = () => {
   };
 
   const addProfileHandler = () => {
-    dispatch(addProfile({ profileName: 'Abhay' }));
+    // dispatch(addProfile({ profileName: 'Abhay' }));
+    navigation.navigate(MainRoutes.ADD_PROFILE);
   };
 
   const openProfile = () => {
@@ -58,7 +59,7 @@ const WhoIsWatching = () => {
     return (
       <ProfileItem
         item={item}
-        onDelete={() => handleDeleteProfile(item)}
+        onDelete={() => handleDeleteProfile(item.profileName)}
         editMode={editMode}
         onClick={openProfile}
       />
@@ -95,9 +96,14 @@ const ProfileItem = React.memo(({ item, editMode, onDelete, onClick }) => {
     <View style={styles.itemContainer}>
       <TouchableOpacity onPress={onClick}>
         <Image
-          source={require('../../../assets/profileIcon.png')}
+          source={
+            item.image && item.image !== ''
+              ? { uri: item.image }
+              : require('../../../assets/profileIcon.png')
+          }
           style={styles.avatar}
         />
+
         {editMode && (
           <TouchableOpacity
             style={styles.deleteIconContainer}
@@ -108,7 +114,7 @@ const ProfileItem = React.memo(({ item, editMode, onDelete, onClick }) => {
           </TouchableOpacity>
         )}
       </TouchableOpacity>
-      <Text style={styles.nameText}>{item}</Text>
+      <Text style={styles.nameText}>{item.name}</Text>
     </View>
   );
 });

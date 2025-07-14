@@ -1,14 +1,26 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { colors } from '../../utils/colors';
 
 const Kids = () => {
   return (
-    <View>
-      <Text>Kids</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>LiveTV</Text>
     </View>
   );
 };
 
 export default Kids;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: colors.appButton,
+    fontSize: 20,
+    letterSpacing: 2,
+  },
+});

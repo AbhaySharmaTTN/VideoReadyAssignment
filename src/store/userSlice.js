@@ -32,12 +32,14 @@ const authSlice = createSlice({
         return;
       }
 
+      const initialProfile = { name, image: null };
+
       state.users.push({
         email,
         password,
         name,
         phoneNumber,
-        profiles: [],
+        profiles: [initialProfile],
         genre: [],
       });
 
@@ -45,9 +47,8 @@ const authSlice = createSlice({
       state.email = email;
       state.password = password;
       state.phoneNumber = phoneNumber;
-      //   state.isOnboarded = true;
       state.isLoggedIn = true;
-      state.profiles = [name];
+      state.profiles = [initialProfile];
     },
 
     signIn: (state, action) => {
@@ -61,7 +62,6 @@ const authSlice = createSlice({
       }
 
       const user = state.users.find(user => user.email === email);
-
       if (!user) {
         state.error = 'User not found';
         return;
@@ -84,7 +84,6 @@ const authSlice = createSlice({
 
     updateUserDetails: (state, action) => {
       const { newEmail, name, password } = action.payload;
-
       state.error = null;
 
       const user = state.users.find(u => u.email === state.email);
@@ -113,23 +112,27 @@ const authSlice = createSlice({
         state.password = password;
       }
     },
+
     setGenre: (state, action) => {
       const { genre } = action.payload;
 
       const currUser = state.users.find(u => u.email === state.email);
-      currUser.genre = genre;
+      if (currUser) {
+        currUser.genre = genre;
+      }
+
       state.genre = genre;
-      console.log(state.genre);
     },
 
     addProfile: (state, action) => {
-      const { profileName } = action.payload;
+      const { profileName, profileImage } = action.payload;
+
+      const newProfile = { name: profileName, image: profileImage };
 
       const currUser = state.users.find(u => u.email === state.email);
-
       if (!currUser) return;
 
-      currUser.profiles.push(profileName);
+      currUser.profiles.push(newProfile);
       state.profiles = currUser.profiles;
     },
 
@@ -137,15 +140,15 @@ const authSlice = createSlice({
       const { profileName } = action.payload;
 
       const currUser = state.users.find(u => u.email === state.email);
-
       if (!currUser || !currUser.profiles) return;
 
       currUser.profiles = currUser.profiles.filter(
-        profile => profile !== profileName,
+        profile => profile.name !== profileName,
       );
 
       state.profiles = currUser.profiles;
     },
+
     setProfileImage: (state, action) => {
       const { image } = action.payload;
       state.profileImage = image;
@@ -172,15 +175,14 @@ const authSlice = createSlice({
       const { genre } = action.payload;
 
       const currUser = state.users.find(u => u.email === state.email);
-
-      currUser.genre.push(genre), state.genre.push(genre);
+      if (currUser) {
+        currUser.genre.push(genre);
+        state.genre.push(genre);
+      }
     },
 
     clearError: state => {
       state.error = null;
-    },
-    setOnboarding: (state, action) => {
-      state.isOnboarded = true;
     },
   },
 });

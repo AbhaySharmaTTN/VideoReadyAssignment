@@ -11,6 +11,7 @@ import Profiles from '../../screens/main_screens/Profiles';
 import EditUserProfile from '../../screens/main_screens/EditUserProfile';
 import VideoDetails from '../../screens/main_screens/VideoDetails';
 import { useSelector } from 'react-redux';
+import AddProfile from '../../screens/main_screens/AddProfile';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +38,7 @@ const MainStack = () => {
         name={MainRoutes.WHO_IS_WATCHING}
         component={WhoIsWatching}
       />
-
+        <Stack.Screen name={MainRoutes.ADD_PROFILE} component={AddProfile} />
       <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
       <Stack.Screen
         name={MainRoutes.EDIT_USER_DETAILS}

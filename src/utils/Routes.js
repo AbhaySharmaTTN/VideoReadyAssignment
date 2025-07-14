@@ -19,4 +19,5 @@ export const MainRoutes = {
   PROFILES: 'Profiles',
   EDIT_USER_DETAILS: 'EditUserDetails',
   VIDEO_DETAILS: 'VideoDetails',
+  ADD_PROFILE: 'AddProfile',
 };

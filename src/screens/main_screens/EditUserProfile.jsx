@@ -16,7 +16,7 @@ import {
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { isValidEmail } from '../../utils/validators'; // ✅ import validator
+import { isValidEmail } from '../../utils/validators';
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();

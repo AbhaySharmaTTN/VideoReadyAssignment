@@ -14,11 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { addProfile } from '../../store/userSlice';
 
 const Profiles = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,7 +30,6 @@ const Profiles = () => {
   }, [userGenre]);
 
   const profileNames = useSelector(state => state.user.profiles);
-  const [num, setNum] = useState(0);
 
   function onEditProfilePress() {
     navigation.navigate(MainRoutes.EDIT_USER_DETAILS);
@@ -47,8 +44,7 @@ const Profiles = () => {
   }
 
   function onAddProfile() {
-    dispatch(addProfile({ profileName: 'Abhay' + num }));
-    setNum(prev => prev + 1);
+    navigation.navigate(MainRoutes.ADD_PROFILE);
   }
 
   return (
@@ -64,21 +60,30 @@ const Profiles = () => {
         <Text style={styles.headerText}>My Profiles</Text>
       </View>
       <View style={styles.profileRow}>
-        {profileNames.map((name, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.itemContainer}
-            onPress={onProfileClick}
-          >
-            <Image
-              source={require('../../../assets/profileIcon.png')}
-              style={styles.avatar}
-              resizeMode="contain"
-            />
-            <Text style={styles.nameText}>{name}</Text>
-          </TouchableOpacity>
-        ))}
-
+        <FlatList
+          data={profileNames}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.profileRow}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.itemContainer}
+              onPress={onProfileClick}
+            >
+              <Image
+                source={
+                  item.image
+                    ? { uri: item.image }
+                    : require('../../../assets/profileIcon.png')
+                }
+                style={styles.avatar}
+                resizeMode="contain"
+              />
+              <Text style={styles.nameText}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
         <TouchableOpacity style={styles.itemContainer} onPress={onAddProfile}>
           <Image
             source={require('../../../assets/add.png')}
@@ -95,33 +100,6 @@ const Profiles = () => {
       <View style={styles.divider} />
 
       <Text style={styles.genreHeader}>Favourite Genres</Text>
-      {/* <FlatList
-        data={genre}
-        keyExtractor={(item, index) => item + index}
-        numColumns={3}
-        contentContainerStyle={styles.genreGrid}
-        renderItem={({ item }) => {
-          return (
-            <View>
-              {item === 'Add new' ? (
-                <TouchableOpacity style={styles.genreAddBox}>
-                  <Text style={styles.addIcon}>+</Text>
-                </TouchableOpacity>
-              ) : (
-                <View style={styles.genreCard}>
-                  <Image
-                    source={item.image}
-                    style={styles.genreImage}
-                    resizeMode="cover"
-                  />
-                  <Text style={styles.genreText}>{item.title}</Text>
-                </View>
-              )}
-            </View>
-          );
-        }}
-        columnWrapperStyle={{ gap: 5 }}
-      /> */}
 
       <View style={styles.genreGrid}>
         {genre.map((item, index) => {
@@ -162,7 +140,6 @@ const styles = StyleSheet.create({
   profileRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    flexWrap: 'wrap',
     gap: 10,
   },
   itemContainer: {
