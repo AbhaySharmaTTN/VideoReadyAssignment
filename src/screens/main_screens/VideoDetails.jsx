@@ -87,21 +87,10 @@ const VideoDetails = () => {
         >
           <Icon
             name={isPaused ? 'play-arrow' : 'pause'}
-            size={30}
+            size={50}
             color={colors.textColorWhite}
           />
         </TouchableOpacity>
-
-        <View style={styles.gradientContainer} pointerEvents="none">
-          <LinearGradient
-            colors={[colors.appBackground, 'transparent']}
-            style={styles.topGradient}
-          />
-          <LinearGradient
-            colors={['transparent', colors.appBackground]}
-            style={styles.bottomGradient}
-          />
-        </View>
       </View>
 
       <View style={styles.movieNameContainer}>
@@ -280,28 +269,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  gradientContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: 1,
-  },
-  topGradient: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '20%',
-  },
-  bottomGradient: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: '20%',
   },
   movieNameContainer: {
     width: width,

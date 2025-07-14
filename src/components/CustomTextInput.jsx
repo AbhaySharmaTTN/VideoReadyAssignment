@@ -28,6 +28,7 @@ const CustomTextInput = ({
           styles.input,
           error && styles.inputError,
           !editable && styles.disabledInput,
+          !showErrorText && styles.bottomMargin,
         ]}
         value={value}
         onChangeText={onChangeText}
@@ -35,7 +36,9 @@ const CustomTextInput = ({
         editable={editable}
       />
 
-      {showErrorText && error && <Text style={styles.errorText}>{error}</Text>}
+      {showErrorText && (
+        <Text style={styles.errorText}>{error ? error : ''}</Text>
+      )}
     </View>
   );
 };
@@ -45,7 +48,7 @@ export default CustomTextInput;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: 15,
+    marginBottom: 10
   },
   label: {
     fontSize: 14,
@@ -72,9 +75,12 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 12,
-    marginBottom: 3
+    marginBottom: 3,
   },
   disabledInput: {
     color: '#889dc0',
+  },
+  bottomMargin: {
+    marginBottom: 10,
   },
 });
