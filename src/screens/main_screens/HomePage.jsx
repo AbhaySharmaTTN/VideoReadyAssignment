@@ -13,25 +13,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AppButton from '../../components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
+import MediaTile from '../../components/MediaTile';
 
-const movieTitlesForList = [
-  {
-    id: 1,
-    image: require('../../../assets/movieImage.png'),
-  },
-  {
-    id: 2,
-    image: require('../../../assets/movieImage.png'),
-  },
-  {
-    id: 3,
-    image: require('../../../assets/movieImage.png'),
-  },
-  {
-    id: 4,
-    image: require('../../../assets/movieImage.png'),
-  },
-];
+const movieTitlesForList = [1, 2, 3, 4, 5];
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -85,12 +69,11 @@ const HomePage = () => {
           </View>
           <FlatList
             data={movieTitlesForList}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <MovieTile item={item} onPress={onMovieTilePress} />
-            )}
+            keyExtractor={item => item}
+            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
             horizontal
             contentContainerStyle={{ padding: 8 }}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
         <View>
@@ -102,12 +85,11 @@ const HomePage = () => {
           </View>
           <FlatList
             data={movieTitlesForList}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <MovieTile item={item} onPress={onMovieTilePress} />
-            )}
+            keyExtractor={item => item}
+            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
             horizontal
             contentContainerStyle={{ padding: 8 }}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
         <View>
@@ -119,30 +101,15 @@ const HomePage = () => {
           </View>
           <FlatList
             data={movieTitlesForList}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <MovieTile item={item} onPress={onMovieTilePress} />
-            )}
+            keyExtractor={item => item}
+            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
             horizontal
             contentContainerStyle={{ padding: 8 }}
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>
     </ScrollView>
-  );
-};
-
-const MovieTile = ({ item, onPress }) => {
-  return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-      <View style={styles.movieImageTile}>
-        <Image
-          source={item.image}
-          style={{ width: '100%', height: '100%' }}
-          resizeMode="cover"
-        />
-      </View>
-    </TouchableOpacity>
   );
 };
 

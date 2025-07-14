@@ -16,6 +16,8 @@ import { colors } from '../../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import VideoReadyLogoHeader from '../../components/VideoReadyLogoHeader';
 import Video from 'react-native-video';
+import { MainRoutes } from '../../utils/Routes';
+import MediaTile from '../../components/MediaTile';
 
 const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
@@ -45,7 +47,15 @@ const VideoDetails = () => {
   }, []);
 
   function navigateBack() {
-    navigation.goBack();
+    navigation.pop();
+  }
+
+  function goToDownloads() {
+    navigation.navigate(MainRoutes.DOWNLOADS);
+  }
+
+  function onMediaTilePress() {
+    navigation.push(MainRoutes.VIDEO_DETAILS);
   }
 
   const [isPaused, setisPaused] = useState(true);
@@ -140,7 +150,11 @@ const VideoDetails = () => {
             size={20}
             color={colors.textColorWhite}
           />
-          <Text style={styles.playlistDownloadButtonText}>Downloading...</Text>
+          <TouchableOpacity onPress={goToDownloads}>
+            <Text style={styles.playlistDownloadButtonText}>
+              Downloading...
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -152,6 +166,7 @@ const VideoDetails = () => {
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) => <CastItem item={item} />}
             horizontal
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>
@@ -184,8 +199,15 @@ const VideoDetails = () => {
         <FlatList
           data={seasons}
           keyExtractor={item => item}
-          renderItem={({ item }) => <EpisodeItem item={item} />}
+          renderItem={({ item }) => (
+            <MediaTile
+              onPress={onMediaTilePress}
+              showEpisodeNumber={true}
+              episodeNumber={item}
+            />
+          )}
           horizontal
+          showsHorizontalScrollIndicator={false}
         />
       </View>
 
@@ -197,8 +219,9 @@ const VideoDetails = () => {
         <FlatList
           data={seasons}
           keyExtractor={item => item}
-          renderItem={() => <RecommendedItem />}
+          renderItem={() => <RecommendedItem onPress={onMediaTilePress} />}
           horizontal
+          showsHorizontalScrollIndicator={false}
         />
       </View>
     </ScrollView>
@@ -214,27 +237,17 @@ const CastItem = ({ item }) => {
   );
 };
 
-const EpisodeItem = ({ item }) => {
+const RecommendedItem = ({ onPress }) => {
   return (
-    <View style={styles.episodeContainer}>
-      <Image
-        source={require('../../../assets/movieImage.png')}
-        style={styles.episodeImage}
-      />
-      <Text style={styles.episodeNumber}>E{item}</Text>
-    </View>
-  );
-};
-
-const RecommendedItem = () => {
-  return (
-    <View>
-      <Image
-        source={require('../../../assets/movieImage.png')}
-        style={styles.recomImage}
-        resizeMode="cover"
-      />
-    </View>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+      <View>
+        <Image
+          source={require('../../../assets/movieImage.png')}
+          style={styles.recomImage}
+          resizeMode="cover"
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 
