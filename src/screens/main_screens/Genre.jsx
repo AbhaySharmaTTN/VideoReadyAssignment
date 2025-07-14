@@ -112,7 +112,7 @@ const Genre = () => {
     const checkedGenres = genreList.filter(gen => gen.isChecked);
     dispatch(setOnboarding());
     dispatch(setGenre({ genre: checkedGenres }));
-    navigation.replace(MainRoutes.MAIN_BOTTOM_TABS);
+    navigation.replace(MainRoutes.MAIN_DRAWER);
   };
 
   return (

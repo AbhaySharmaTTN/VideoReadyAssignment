@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -51,7 +52,7 @@ const Profiles = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.headerIconContainer}
@@ -94,7 +95,7 @@ const Profiles = () => {
       <View style={styles.divider} />
 
       <Text style={styles.genreHeader}>Favourite Genres</Text>
-      <FlatList
+      {/* <FlatList
         data={genre}
         keyExtractor={(item, index) => item + index}
         numColumns={3}
@@ -120,8 +121,31 @@ const Profiles = () => {
           );
         }}
         columnWrapperStyle={{ gap: 5 }}
-      />
-    </View>
+      /> */}
+
+      <View style={styles.genreGrid}>
+        {genre.map((item, index) => {
+          if (item === 'Add new') {
+            return (
+              <TouchableOpacity key={index} style={styles.genreAddBox}>
+                <Text style={styles.addIcon}>+</Text>
+              </TouchableOpacity>
+            );
+          }
+
+          return (
+            <View key={index} style={styles.genreCard}>
+              <Image
+                source={item.image}
+                style={styles.genreImage}
+                resizeMode="cover"
+              />
+              <Text style={styles.genreText}>{item.title}</Text>
+            </View>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -183,8 +207,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   genreGrid: {
-    padding: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
     gap: 10,
+    paddingBottom: 20,
+    marginTop: 10,
   },
   genreCard: {
     width: gridItemSize - 5,

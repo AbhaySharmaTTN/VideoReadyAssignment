@@ -11,6 +11,7 @@
 		4B642969B31EB2027E6B63B7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8FAD9695254F48D5997CEAAD /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F7D794849DD44CA9BC64BD1 /* Roboto-Bold.ttf */; };
 		C8C9BDC42E20E25F0011F64E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8C9BDC32E20E25F0011F64E /* GoogleService-Info.plist */; };
 		ECA38C4B210205C60081ECDE /* Pods_VideoReadyDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10BB69547F86B44B74163B /* Pods_VideoReadyDemo.framework */; };
 /* End PBXBuildFile section */
@@ -22,6 +23,7 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = VideoReadyDemo/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-VideoReadyDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoReadyDemo.debug.xcconfig"; path = "Target Support Files/Pods-VideoReadyDemo/Pods-VideoReadyDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-VideoReadyDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoReadyDemo.release.xcconfig"; path = "Target Support Files/Pods-VideoReadyDemo/Pods-VideoReadyDemo.release.xcconfig"; sourceTree = "<group>"; };
+		6F7D794849DD44CA9BC64BD1 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = VideoReadyDemo/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VideoReadyDemo/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8C9BDC32E20E25F0011F64E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -62,6 +64,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		356DE67BFB9D44F3B2AD55CE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6F7D794849DD44CA9BC64BD1 /* Roboto-Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +89,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				356DE67BFB9D44F3B2AD55CE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -166,6 +178,7 @@
 				C8C9BDC42E20E25F0011F64E /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4B642969B31EB2027E6B63B7 /* PrivacyInfo.xcprivacy in Resources */,
+				8FAD9695254F48D5997CEAAD /* Roboto-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   enterTextContent: {
     fontSize: 16,
     color: colors.textColorWhite,
-    fontWeight: '500'
+    fontWeight: 'bold'
   },
   arrowBackIcon: {
     color: colors.textColorWhite,

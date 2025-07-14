@@ -117,7 +117,9 @@ const VideoReadyDrawerContent = ({ navigation }) => {
     }
     navigation.navigate(route);
   }
+
   const profileImage = useSelector(state => state.user.profileImage);
+  const userName = useSelector(state => state.user.name);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -130,7 +132,7 @@ const VideoReadyDrawerContent = ({ navigation }) => {
           }
           style={styles.profileIcon}
         />
-        <Text style={styles.profileText}> Abhay </Text>
+        <Text style={styles.profileText}> {userName} </Text>
       </View>
       <View style={styles.divider} />
       <FlatList
@@ -177,7 +179,7 @@ export default VideoReadyDrawerContent;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 10,
+    padding: 15,
     backgroundColor: colors.appBackground,
   },
   profileIconContainer: {
