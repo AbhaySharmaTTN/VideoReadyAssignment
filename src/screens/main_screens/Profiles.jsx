@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { setProfileImage } from '../../store/userSlice';
 
 const Profiles = () => {
   const navigation = useNavigation();
@@ -29,13 +30,16 @@ const Profiles = () => {
     return [...userGenre, 'Add new'];
   }, [userGenre]);
 
+  const dispatch = useDispatch();
+
   const profileNames = useSelector(state => state.user.profiles);
 
   function onEditProfilePress() {
     navigation.navigate(MainRoutes.EDIT_USER_DETAILS);
   }
 
-  function onProfileClick() {
+  function onProfileClick(profileImage) {
+    dispatch(setProfileImage({ image: profileImage }));
     navigation.navigate(MainRoutes.MAIN_BOTTOM_TABS);
   }
 
@@ -69,7 +73,7 @@ const Profiles = () => {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.itemContainer}
-              onPress={onProfileClick}
+              onPress={() => onProfileClick(item.image)}
             >
               <Image
                 source={

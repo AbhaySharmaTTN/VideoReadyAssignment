@@ -12,7 +12,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import { colors } from '../../utils/colors';
-import { addProfile, removeProfile } from '../../store/userSlice';
+import {
+  addProfile,
+  removeProfile,
+  setProfileImage,
+} from '../../store/userSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
@@ -36,7 +40,8 @@ const WhoIsWatching = () => {
     navigation.navigate(MainRoutes.ADD_PROFILE);
   };
 
-  const openProfile = () => {
+  const openProfile = profileImage => {
+    dispatch(setProfileImage({ image: profileImage }));
     navigation.navigate(MainRoutes.MAIN_DRAWER);
   };
 
@@ -61,7 +66,7 @@ const WhoIsWatching = () => {
         item={item}
         onDelete={() => handleDeleteProfile(item.name)}
         editMode={editMode}
-        onClick={openProfile}
+        onClick={() => openProfile(item.image)}
       />
     );
   };
