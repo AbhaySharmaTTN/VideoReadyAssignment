@@ -59,7 +59,7 @@ const WhoIsWatching = () => {
     return (
       <ProfileItem
         item={item}
-        onDelete={() => handleDeleteProfile(item.profileName)}
+        onDelete={() => handleDeleteProfile(item.name)}
         editMode={editMode}
         onClick={openProfile}
       />
