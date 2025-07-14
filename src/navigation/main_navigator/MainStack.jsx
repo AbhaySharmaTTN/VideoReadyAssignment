@@ -29,19 +29,14 @@ const MainStack = () => {
           backgroundColor: colors.appBackground,
         },
       }}
-      
     >
-      {!isOnboarded && (
-        <Stack.Screen name={MainRoutes.GENRE} component={Genre} />
-      )}
-      {/* <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} /> */}
-      {profiles.length > 1 && (
-        <Stack.Screen
-          name={MainRoutes.WHO_IS_WATCHING}
-          component={WhoIsWatching}
-        />
-      )}
+      <Stack.Screen name={MainRoutes.MAIN_GATE} component={MainGateScreen} />
       <Stack.Screen name={MainRoutes.MAIN_DRAWER} component={DrawerNavigator} />
+      <Stack.Screen name={MainRoutes.GENRE} component={Genre} />
+      <Stack.Screen
+        name={MainRoutes.WHO_IS_WATCHING}
+        component={WhoIsWatching}
+      />
 
       <Stack.Screen name={MainRoutes.DOWNLOADS} component={Downloads} />
       <Stack.Screen

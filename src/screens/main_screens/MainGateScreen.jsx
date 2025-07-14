@@ -7,23 +7,19 @@ import { MainRoutes } from '../../utils/Routes';
 
 const MainGateScreen = () => {
   const navigation = useNavigation();
-  const { genre, profiles } = useSelector(state => state.user);
+  const { isOnboarded, profiles } = useSelector(state => state.user);
 
   useEffect(() => {
     setTimeout(() => {
-      if (genre.length === 0) {
-        navigation.replace(MainRoutes.GENRE);
+      if (!isOnboarded) {
+        navigation.navigate(MainRoutes.GENRE);
       } else if (profiles.length > 1) {
-        navigation.replace(MainRoutes.WHO_IS_WATCHING);
+        navigation.navigate(MainRoutes.WHO_IS_WATCHING);
       } else {
-        navigation.navigate(MainRoutes.MAIN_DRAWER);
-    //     navigation.reset({
-    //     index: 0,
-    //     routes: [{ name: MainRoutes.MAIN_DRAWER }],
-    //   });
+        navigation.replace(MainRoutes.MAIN_DRAWER);
       }
-    }, 100);
-  }, [genre, profiles]);
+    }, 0);
+  }, []);
 
   return (
     <View style={styles.container}>
