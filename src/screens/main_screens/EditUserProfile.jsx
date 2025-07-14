@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,12 @@ const EditUserProfile = () => {
     name: userName,
     email: userEmail,
     phoneNumber,
+    profileImage,
   } = useSelector(state => state.user);
 
   const [name, setName] = useState(userName);
   const [email, setEmail] = useState(userEmail);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(profileImage);
 
   const navigation = useNavigation();
 
@@ -68,6 +70,17 @@ const EditUserProfile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+        >
+          <Icon name="arrow-back" size={24} color={colors.textColorWhite} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Edit Profile</Text>
+        <View style={{ width: 24 }} />
+      </View>
+
       <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
         {image ? (
           <Image source={{ uri: image }} style={styles.profileImage} />
@@ -117,6 +130,20 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: colors.appBackground,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  backButton: {
+    padding: 4,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.textColorWhite,
   },
   imageContainer: {
     alignItems: 'center',

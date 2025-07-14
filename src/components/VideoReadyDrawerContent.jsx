@@ -10,10 +10,10 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../utils/colors';
 import { FlatList } from 'react-native-gesture-handler';
-import { useNavigation, useNavigationState } from '@react-navigation/native';
+import { useNavigationState } from '@react-navigation/native';
 import { MainRoutes } from '../utils/Routes';
 import { useDispatch } from 'react-redux';
-import { signOut } from '@react-native-firebase/auth';
+import { logOut } from '../store/userSlice';
 
 const drawerItems = [
   {
@@ -106,7 +106,7 @@ const VideoReadyDrawerContent = ({ navigation }) => {
           {
             text: 'Yes',
             onPress: () => {
-              dispatch(signOut());
+              dispatch(logOut());
             },
             style: 'destructive',
           },

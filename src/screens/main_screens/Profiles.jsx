@@ -7,7 +7,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../utils/colors';
@@ -25,9 +25,11 @@ const Profiles = () => {
     });
   }, [navigation]);
 
-  const genre = useSelector(state => {
-    return [...state.user.genre, 'Add new'];
-  });
+  const userGenre = useSelector(state => state.user.genre);
+  const genre = useMemo(() => {
+    return [...userGenre, 'Add new'];
+  }, [userGenre]);
+
   const profileNames = useSelector(state => state.user.profiles);
   const [num, setNum] = useState(0);
 
@@ -117,7 +119,7 @@ const Profiles = () => {
             </View>
           );
         }}
-        columnWrapperStyle={{ gap: 10 }}
+        columnWrapperStyle={{ gap: 5 }}
       />
     </View>
   );
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   genreCard: {
-    width: gridItemSize,
+    width: gridItemSize - 5,
     alignItems: 'center',
     backgroundColor: '#001C37',
     padding: 3,
@@ -203,10 +205,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   genreAddBox: {
-    width: gridItemSize / 2,
-    height: gridItemSize / 2,
+    width: gridItemSize,
+    height: gridItemSize + 20,
     backgroundColor: '#122436',
-    borderRadius: 50,
+    borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },

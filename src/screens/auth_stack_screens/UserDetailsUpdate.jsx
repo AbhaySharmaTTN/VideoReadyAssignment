@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomTextInput from '../../components/CustomTextInput';
@@ -7,9 +7,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import AppButton from '../../components/AppButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../store/userSlice';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const UserDetailsUpdate = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const route = useRoute();
 
   const phoneNumber = route.params?.phoneNumber;
@@ -30,9 +32,16 @@ const UserDetailsUpdate = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.topHeader}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back" size={24} color={colors.textColorWhite} />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.header}>
         <Text style={styles.headerText}>UPDATE YOUR DETAILS</Text>
       </View>
+
       <View style={styles.inputContainer}>
         <CustomTextInput
           value={name}
@@ -63,12 +72,15 @@ const UserDetailsUpdate = () => {
           error={error}
         />
       </View>
+
       <Text>{errorMessageFromState ? errorMessageFromState : ''}</Text>
+
       <AppButton
         title="Create Account"
         onPress={handleCreateAccount}
         style={styles.createAccountButton}
       />
+
       {error && <Text style={styles.errorText}>{error}*</Text>}
     </SafeAreaView>
   );
@@ -79,11 +91,16 @@ export default UserDetailsUpdate;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: colors.appBackground,
+  },
+  topHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 10,
   },
   header: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 60,
+    marginTop: 20,
     marginBottom: 30,
   },
   headerText: {
@@ -93,11 +110,12 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   inputContainer: {
-    marginTop: 40,
+    marginTop: 20,
     padding: 20,
   },
   createAccountButton: {
     marginHorizontal: 20,
+    marginTop: 10,
   },
   errorText: {
     color: colors.errorColor,

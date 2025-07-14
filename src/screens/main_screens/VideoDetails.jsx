@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import VideoReadyHeader from '../../components/VideoReadyHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';

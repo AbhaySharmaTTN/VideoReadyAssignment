@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SignInSignUpTabSlider from './SignInSignUpTabSlider';
-import { useNavigation } from '@react-navigation/native';
+
 
 const LoginSignUp = () => {
   return (
