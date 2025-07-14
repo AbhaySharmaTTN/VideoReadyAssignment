@@ -12,7 +12,7 @@ import { colors } from '../utils/colors';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigationState } from '@react-navigation/native';
 import { MainRoutes } from '../utils/Routes';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../store/userSlice';
 
 const drawerItems = [
@@ -117,12 +117,17 @@ const VideoReadyDrawerContent = ({ navigation }) => {
     }
     navigation.navigate(route);
   }
+  const profileImage = useSelector(state => state.user.profileImage);
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.profileIconContainer}>
         <Image
-          source={require('../../assets/profileIcon.png')}
+          source={
+            profileImage
+              ? { uri: profileImage }
+              : require('../../assets/profileIcon.png')
+          }
           style={styles.profileIcon}
         />
         <Text style={styles.profileText}> Abhay </Text>
@@ -184,6 +189,7 @@ const styles = StyleSheet.create({
   profileIcon: {
     width: 80,
     height: 80,
+    borderRadius: 50,
   },
   profileText: {
     color: colors.textColorWhite,

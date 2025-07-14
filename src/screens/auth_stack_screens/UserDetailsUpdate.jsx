@@ -8,6 +8,7 @@ import AppButton from '../../components/AppButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../../store/userSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { isValidEmail, isValidPassword } from '../../utils/validators';
 
 const UserDetailsUpdate = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,31 @@ const UserDetailsUpdate = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
   function handleCreateAccount() {
-    if (!email || !password || !name) {
-      setError('Name, Email and Password fields are required');
+    if (!email || !password || !name || !confirmPassword) {
+      setError('All fields are required');
       return;
     }
+
+    if (!isValidEmail(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    if (!isValidPassword(password)) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    setError('');
     dispatch(signUp({ name, email, phoneNumber, password }));
   }
 
@@ -40,6 +59,12 @@ const UserDetailsUpdate = () => {
 
       <View style={styles.header}>
         <Text style={styles.headerText}>UPDATE YOUR DETAILS</Text>
+      </View>
+
+      <View style={styles.EnterText}>
+        <Text style={styles.enterTextContent}>
+          Please enter your Name, Password and Email to create your profile
+        </Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -61,19 +86,38 @@ const UserDetailsUpdate = () => {
           }}
           error={error}
         />
-        <CustomTextInput value={phoneNumber} editable={false} />
+        <CustomTextInput
+          value={phoneNumber}
+          editable={false}
+          textInputConfig={{
+            placeholder: 'Phone Number',
+          }}
+        />
         <CustomTextInput
           value={password}
           onChangeText={setPassword}
           textInputConfig={{
             placeholder: 'Password',
             placeholderTextColor: colors.placeholderTextColor,
+            secureTextEntry: true,
+          }}
+          error={error}
+        />
+        <CustomTextInput
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          textInputConfig={{
+            placeholder: 'Confirm Password',
+            placeholderTextColor: colors.placeholderTextColor,
+            secureTextEntry: true,
           }}
           error={error}
         />
       </View>
 
-      <Text>{errorMessageFromState ? errorMessageFromState : ''}</Text>
+      {errorMessageFromState ? (
+        <Text style={styles.errorText}>{errorMessageFromState}</Text>
+      ) : null}
 
       <AppButton
         title="Create Account"
@@ -122,5 +166,13 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     fontSize: 12,
+    marginTop: 4,
+  },
+  EnterText: {
+    padding: 15,
+  },
+  enterTextContent: {
+    fontSize: 15,
+    color: colors.textColorWhite,
   },
 });

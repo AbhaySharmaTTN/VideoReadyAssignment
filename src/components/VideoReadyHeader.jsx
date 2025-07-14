@@ -5,8 +5,11 @@ import { colors } from '../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { containerRef } from '../navigation/main_navigator/drawerRef';
 import { DrawerActions } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const VideoReadyHeader = ({ disableDrawer = false }) => {
+  const profileImage = useSelector(state => state.user.profileImage);
+
   return (
     <SafeAreaView edges={['top']} style={styles.safeArea}>
       <View style={styles.headerContainer}>
@@ -26,7 +29,11 @@ const VideoReadyHeader = ({ disableDrawer = false }) => {
             }}
           >
             <Image
-              source={require('../../assets/profileIcon.png')}
+              source={
+                profileImage
+                  ? { uri: profileImage }
+                  : require('../../assets/profileIcon.png')
+              }
               style={styles.profileIcon}
             />
           </TouchableOpacity>
@@ -66,5 +73,6 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     marginHorizontal: 5,
+    borderRadius: 50
   },
 });

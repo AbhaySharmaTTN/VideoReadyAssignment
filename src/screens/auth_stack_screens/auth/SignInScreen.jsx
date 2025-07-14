@@ -45,9 +45,11 @@ const SignInScreen = () => {
         label="Password"
         value={password}
         onChangeText={setPassword}
-        secureTextEntry
         error={error}
         showErrorText={true}
+        textInputConfig={{
+          secureTextEntry: true,
+        }}
       />
       <Text style={styles.errorText}>
         {errorFromStateMessage ? errorFromStateMessage : ''}

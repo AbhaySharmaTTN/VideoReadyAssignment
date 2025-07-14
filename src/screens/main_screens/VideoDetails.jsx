@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import VideoReadyHeader from '../../components/VideoReadyHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import VideoReadyLogoHeader from '../../components/VideoReadyLogoHeader';
+import Video from 'react-native-video';
 
 const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
@@ -46,16 +48,20 @@ const VideoDetails = () => {
     navigation.goBack();
   }
 
+  const [isPaused, setisPaused] = useState(true);
+
   return (
     <ScrollView
       style={styles.mainContainer}
       contentContainerStyle={{ paddingBottom: 150 }}
     >
       <View style={styles.imageContainer}>
-        <Image
-          source={require('../../../assets/Intro2.png')}
+        <Video
+          source={{ uri: require('../../../assets/vids.mp4') }}
           style={styles.movieImage}
           resizeMode="cover"
+          paused={isPaused}
+          repeat
         />
 
         <TouchableOpacity
@@ -65,8 +71,15 @@ const VideoDetails = () => {
           <Icon name="arrow-back" size={30} color={colors.textColorWhite} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.centerPlaybutton}>
-          <Icon name="play-arrow" size={30} color={colors.textColorWhite} />
+        <TouchableOpacity
+          style={styles.centerPlaybutton}
+          onPress={() => setisPaused(prev => !prev)}
+        >
+          <Icon
+            name={isPaused ? 'play-arrow' : 'pause'}
+            size={30}
+            color={colors.textColorWhite}
+          />
         </TouchableOpacity>
 
         <View style={styles.gradientContainer} pointerEvents="none">

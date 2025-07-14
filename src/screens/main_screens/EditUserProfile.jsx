@@ -16,6 +16,7 @@ import {
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { isValidEmail } from '../../utils/validators'; // ✅ import validator
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();
@@ -63,8 +64,14 @@ const EditUserProfile = () => {
       Alert.alert('Validation', 'Name and Email are required');
       return;
     }
-    dispatch(updateUserDetails({ name, email }));
+
+    if (!isValidEmail(email)) {
+      Alert.alert('Validation', 'Please enter a valid email address');
+      return;
+    }
     dispatch(setProfileImage({ image: image }));
+
+    dispatch(updateUserDetails({ name, email }));
     navigation.goBack();
   };
 
