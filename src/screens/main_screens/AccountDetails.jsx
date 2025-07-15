@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { ACCOUNT_DETAILS } from '../../utils/strings';
 
 const AccountDetails = () => {
   return (
     <View>
-      <Text>AccountDetails</Text>
+      <Text>{ACCOUNT_DETAILS}</Text>
     </View>
   );
 };

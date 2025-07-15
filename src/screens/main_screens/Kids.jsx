@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { colors } from '../../utils/colors';
+import { LIVETV } from '../../utils/strings';
 
 const Kids = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>LiveTV</Text>
+      <Text style={styles.text}>{LIVETV}</Text>
     </View>
   );
 };

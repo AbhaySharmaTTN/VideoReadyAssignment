@@ -14,6 +14,17 @@ import AppButton from '../../components/AppButton';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
 import MediaTile from '../../components/MediaTile';
+import {
+  DR_STRANGE,
+  MORE_DETAILS,
+  WATCH_NOW,
+  ADD_TO_PLAYLIST,
+  ACTION_THRILLER_SUSPENSE,
+  FLASH_CHANNEL,
+  STAY_AT_HOME,
+  EXPLORE,
+  MORE
+} from '../../utils/strings';
 
 const movieTitlesForList = [1, 2, 3, 4, 5];
 
@@ -33,15 +44,15 @@ const HomePage = () => {
           resizeMode="cover"
         />
         <View style={styles.movieDetailsContainer}>
-          <Text style={styles.movieTitle}>DR. STRANGE</Text>
+          <Text style={styles.movieTitle}>{DR_STRANGE}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.iconButton}>
               <Icon name="info" style={styles.icon} />
-              <Text style={styles.iconText}>More Details</Text>
+              <Text style={styles.iconText}>{MORE_DETAILS}</Text>
             </TouchableOpacity>
 
             <AppButton
-              title="Watch Now"
+              title={WATCH_NOW}
               style={styles.watchNow}
               icon="play-arrow"
               iconColor={colors.textColorWhite}
@@ -51,20 +62,20 @@ const HomePage = () => {
 
             <TouchableOpacity style={styles.iconButton}>
               <Icon name="playlist-add" style={styles.icon} />
-              <Text style={styles.iconText}>Add to Playlist</Text>
+              <Text style={styles.iconText}>{ADD_TO_PLAYLIST}</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.descriptionText}>
-            Action | Thriller | Suspense
+            {ACTION_THRILLER_SUSPENSE}
           </Text>
         </View>
       </View>
       <View style={styles.listContainer}>
         <View>
           <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>Flash Channel</Text>
+            <Text style={styles.listHeaderText}>{FLASH_CHANNEL}</Text>
             <TouchableOpacity>
-              <Text style={styles.moreTextButton}>More</Text>
+              <Text style={styles.moreTextButton}>{MORE}</Text>
             </TouchableOpacity>
           </View>
           <FlatList
@@ -78,9 +89,9 @@ const HomePage = () => {
         </View>
         <View>
           <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>Stay at Home</Text>
+            <Text style={styles.listHeaderText}>{STAY_AT_HOME}</Text>
             <TouchableOpacity>
-              <Text style={styles.moreTextButton}>More</Text>
+              <Text style={styles.moreTextButton}>{MORE}</Text>
             </TouchableOpacity>
           </View>
           <FlatList
@@ -94,9 +105,9 @@ const HomePage = () => {
         </View>
         <View>
           <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>Explore</Text>
+            <Text style={styles.listHeaderText}>{EXPLORE}</Text>
             <TouchableOpacity>
-              <Text style={styles.moreTextButton}>More</Text>
+              <Text style={styles.moreTextButton}>{MORE}</Text>
             </TouchableOpacity>
           </View>
           <FlatList

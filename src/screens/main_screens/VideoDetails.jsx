@@ -18,6 +18,17 @@ import VideoReadyLogoHeader from '../../components/VideoReadyLogoHeader';
 import Video from 'react-native-video';
 import { MainRoutes } from '../../utils/Routes';
 import MediaTile from '../../components/MediaTile';
+import {
+  S1_E1_AVATAR,
+  ACTION_ADVENTURE_FANTASY,
+  MORE_ELLIPSIS,
+  ADD_TO_PLAYLIST_VIDEO,
+  DOWNLOADING,
+  CAST,
+  RECOMMENDED,
+  SEASON,
+  MORE
+} from '../../utils/strings';
 
 const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
@@ -94,7 +105,7 @@ const VideoDetails = () => {
       </View>
 
       <View style={styles.movieNameContainer}>
-        <Text style={styles.movieName}>S1:E1:Avatar</Text>
+        <Text style={styles.movieName}>{S1_E1_AVATAR}</Text>
         <View style={styles.shareAndLikeButtons}>
           <Icon name="share" size={20} color={colors.descriptionTextColor} />
           <Icon name="favorite" size={20} color={colors.descriptionTextColor} />
@@ -109,11 +120,11 @@ const VideoDetails = () => {
         </View>
       </View>
 
-      <Text style={styles.textGenre}>Action, Adventure, Fantasy</Text>
+      <Text style={styles.textGenre}>{ACTION_ADVENTURE_FANTASY}</Text>
 
       <Text style={[styles.text, styles.description]}>
         {loremText}
-        <Text style={[styles.text, { color: colors.appButton }]}> ...more</Text>
+        <Text style={[styles.text, { color: colors.appButton }]}>{MORE_ELLIPSIS}</Text>
       </Text>
 
       <View style={styles.directorCountryRelease}>
@@ -131,7 +142,7 @@ const VideoDetails = () => {
       <View style={styles.playlistDownload}>
         <View style={styles.playlistDownloadButtonStyle}>
           <Icon name="playlist-add" size={20} color={colors.textColorWhite} />
-          <Text style={styles.playlistDownloadButtonText}>Add to playlist</Text>
+          <Text style={styles.playlistDownloadButtonText}>{ADD_TO_PLAYLIST_VIDEO}</Text>
         </View>
         <View style={styles.playlistDownloadButtonStyle}>
           <Icon
@@ -141,14 +152,14 @@ const VideoDetails = () => {
           />
           <TouchableOpacity onPress={goToDownloads}>
             <Text style={styles.playlistDownloadButtonText}>
-              Downloading...
+              {DOWNLOADING}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.castList}>
-        <Text style={styles.listHeading}>Cast</Text>
+        <Text style={styles.listHeading}>{CAST}</Text>
         <View style={styles.listContainer}>
           <FlatList
             data={CAST}
@@ -176,7 +187,7 @@ const VideoDetails = () => {
                   isSelected && styles.selectedSeasonItem,
                 ]}
               >
-                Season {item}
+                {SEASON} {item}
               </Text>
             );
           }}
@@ -202,8 +213,8 @@ const VideoDetails = () => {
 
       <View style={styles.recommendedContainer}>
         <View style={styles.recommendedHeader}>
-          <Text style={styles.recommendedHeaderText}>Recommended</Text>
-          <Text style={styles.recommendedHeaderMore}>More</Text>
+          <Text style={styles.recommendedHeaderText}>{RECOMMENDED}</Text>
+          <Text style={styles.recommendedHeaderMore}>{MORE}</Text>
         </View>
         <FlatList
           data={seasons}

@@ -15,6 +15,13 @@ import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { setProfileImage } from '../../store/userSlice';
+import {
+  MY_PROFILES,
+  ADD_NEW,
+  EDIT_PROFILE_BTN,
+  FAVOURITE_GENRES,
+  ADD_GENRE
+} from '../../utils/strings';
 
 const Profiles = () => {
   const navigation = useNavigation();
@@ -27,7 +34,7 @@ const Profiles = () => {
 
   const userGenre = useSelector(state => state.user.genre);
   const genre = useMemo(() => {
-    return [...userGenre, 'Add new'];
+    return [...userGenre, ADD_GENRE];
   }, [userGenre]);
 
   const dispatch = useDispatch();
@@ -61,7 +68,7 @@ const Profiles = () => {
         >
           <Icon name="arrow-back" size={20} color={colors.textColorWhite} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>My Profiles</Text>
+        <Text style={styles.headerText}>{MY_PROFILES}</Text>
       </View>
       <View style={styles.profileRow}>
         <FlatList
@@ -93,21 +100,21 @@ const Profiles = () => {
             source={require('../../../assets/add.png')}
             style={styles.avatar}
           />
-          <Text style={styles.addText}>Add New</Text>
+          <Text style={styles.addText}>{ADD_NEW}</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={onEditProfilePress} style={styles.editProfile}>
-        <Text style={styles.editProfile}>Edit Profile</Text>
+        <Text style={styles.editProfile}>{EDIT_PROFILE_BTN}</Text>
       </TouchableOpacity>
 
       <View style={styles.divider} />
 
-      <Text style={styles.genreHeader}>Favourite Genres</Text>
+      <Text style={styles.genreHeader}>{FAVOURITE_GENRES}</Text>
 
       <View style={styles.genreGrid}>
         {genre.map((item, index) => {
-          if (item === 'Add new') {
+          if (item === ADD_GENRE) {
             return (
               <TouchableOpacity key={index} style={styles.genreAddBox}>
                 <Text style={styles.addIcon}>+</Text>

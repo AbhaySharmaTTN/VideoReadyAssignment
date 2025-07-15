@@ -17,6 +17,7 @@ import AppButton from '../../components/AppButton';
 import { setGenre, setOnboarding } from '../../store/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
+import { GENRE, CONFIRM } from '../../utils/strings';
 
 const genres = [
   {
@@ -123,7 +124,7 @@ const Genre = () => {
         >
           <Icon name="arrow-back" size={30} style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Genre</Text>
+        <Text style={styles.headerText}>{GENRE}</Text>
       </View>
 
       <FlatList
@@ -138,7 +139,7 @@ const Genre = () => {
         showsVerticalScrollIndicator={false}
       />
       <AppButton
-        title="Confirm"
+        title={CONFIRM}
         style={styles.confirmButton}
         onPress={handleConfirmButton}
       />

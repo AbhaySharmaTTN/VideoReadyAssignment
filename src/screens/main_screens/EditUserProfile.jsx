@@ -17,6 +17,22 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { isValidEmail } from '../../utils/validators';
+import {
+  EDIT_PROFILE,
+  PICK_IMAGE,
+  NAME,
+  NAME_PLACEHOLDER,
+  EMAIL,
+  EMAIL_PLACEHOLDER,
+  PHONE_NUMBER,
+  PHONE_NUMBER_PLACEHOLDER,
+  SAVE_CHANGES,
+  VALIDATION_NAME_EMAIL_REQUIRED,
+  VALIDATION_EMAIL,
+  CAMERA,
+  GALLERY,
+  CANCEL
+} from '../../utils/strings';
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();
@@ -34,39 +50,39 @@ const EditUserProfile = () => {
   const navigation = useNavigation();
 
   const pickImage = () => {
-    Alert.alert('Select Image', 'Choose an image from gallery or open camera', [
-      {
-        text: 'Camera',
-        onPress: () => {
-          launchCamera({ mediaType: 'photo' }, result => {
-            if (!result.didCancel && result.assets?.length > 0) {
-              setImage(result.assets[0].uri);
-            }
-          });
+    Alert.alert(
+      PICK_IMAGE,
+      'Choose an image from gallery or open camera', [
+        { text: CAMERA,
+          onPress: () => {
+            launchCamera({ mediaType: 'photo' }, result => {
+              if (!result.didCancel && result.assets?.length > 0) {
+                setImage(result.assets[0].uri);
+              }
+            });
+          },
         },
-      },
-      {
-        text: 'Gallery',
-        onPress: () => {
-          launchImageLibrary({ mediaType: 'photo' }, result => {
-            if (!result.didCancel && result.assets?.length > 0) {
-              setImage(result.assets[0].uri);
-            }
-          });
+        { text: GALLERY,
+          onPress: () => {
+            launchImageLibrary({ mediaType: 'photo' }, result => {
+              if (!result.didCancel && result.assets?.length > 0) {
+                setImage(result.assets[0].uri);
+              }
+            });
+          },
         },
-      },
-      { text: 'Cancel', style: 'cancel' },
-    ]);
+        { text: CANCEL, style: 'cancel' },
+      ]);
   };
 
   const handleSave = () => {
     if (!name || !email) {
-      Alert.alert('Validation', 'Name and Email are required');
+      Alert.alert('Validation', VALIDATION_NAME_EMAIL_REQUIRED);
       return;
     }
 
     if (!isValidEmail(email)) {
-      Alert.alert('Validation', 'Please enter a valid email address');
+      Alert.alert('Validation', VALIDATION_EMAIL);
       return;
     }
     dispatch(setProfileImage({ image: image }));
@@ -84,7 +100,7 @@ const EditUserProfile = () => {
         >
           <Icon name="arrow-back" size={24} color={colors.textColorWhite} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Edit Profile</Text>
+        <Text style={styles.headerTitle}>{EDIT_PROFILE}</Text>
         <View style={{ width: 24 }} />
       </View>
 
@@ -93,39 +109,39 @@ const EditUserProfile = () => {
           <Image source={{ uri: image }} style={styles.profileImage} />
         ) : (
           <View style={styles.placeholderImage}>
-            <Text style={styles.imageText}>Pick Image</Text>
+            <Text style={styles.imageText}>{PICK_IMAGE}</Text>
           </View>
         )}
       </TouchableOpacity>
 
       <CustomTextInput
-        label="Name"
+        label={NAME}
         value={name}
         onChangeText={setName}
-        textInputConfig={{ placeholder: 'Enter your name' }}
+        textInputConfig={{ placeholder: NAME_PLACEHOLDER }}
       />
 
       <CustomTextInput
-        label="Email"
+        label={EMAIL}
         value={email}
         onChangeText={setEmail}
         textInputConfig={{
-          placeholder: 'Enter your email',
+          placeholder: EMAIL_PLACEHOLDER,
           keyboardType: 'email-address',
         }}
       />
 
       <CustomTextInput
-        label="Phone Number"
+        label={PHONE_NUMBER}
         value={phoneNumber}
         editable={false}
         textInputConfig={{
-          placeholder: 'Phone Number',
+          placeholder: PHONE_NUMBER_PLACEHOLDER,
           keyboardType: 'phone-pad',
         }}
       />
 
-      <AppButton title="Save Changes" onPress={handleSave} />
+      <AppButton title={SAVE_CHANGES} onPress={handleSave} />
     </SafeAreaView>
   );
 };

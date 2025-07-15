@@ -20,6 +20,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
+import { WHO_IS_WATCHING_TITLE, ADD_NEW, EDIT_PROFILE, DONE } from '../../utils/strings';
 
 const screenWidth = Dimensions.get('window').width;
 const itemSize = screenWidth / 2 - 20;
@@ -56,7 +57,7 @@ const WhoIsWatching = () => {
             source={require('../../../assets/add.png')}
             style={styles.avatar}
           />
-          <Text style={styles.addText}>Add New</Text>
+          <Text style={styles.addText}>{ADD_NEW}</Text>
         </TouchableOpacity>
       );
     }
@@ -75,7 +76,7 @@ const WhoIsWatching = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Who is Watching?</Text>
+      <Text style={styles.title}>{WHO_IS_WATCHING_TITLE}</Text>
 
       <FlatList
         data={displayData}
@@ -87,7 +88,7 @@ const WhoIsWatching = () => {
       />
 
       <AppButton
-        title={editMode ? 'Done' : 'Edit Profile'}
+        title={editMode ? DONE : EDIT_PROFILE}
         onPress={() => setEditMode(prev => !prev)}
       />
     </SafeAreaView>

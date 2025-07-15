@@ -21,6 +21,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../utils/colors';
 import AppButton from '../../components/AppButton';
 import { MainRoutes } from '../../utils/Routes';
+import {
+  DELETE,
+  REDOWNLOAD,
+  CLOSE,
+  DOWNLOADED
+} from '../../utils/strings';
 
 const movieTitles = [
   {
@@ -109,13 +115,13 @@ const Downloads = () => {
               activeOpacity={0.7}
               onPress={onDeleteClick}
             >
-              <Text style={styles.text}>Delete</Text>
+              <Text style={styles.text}>{DELETE}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.sheetButtons} activeOpacity={0.7}>
-              <Text style={styles.text}>Re-Download</Text>
+              <Text style={styles.text}>{REDOWNLOAD}</Text>
             </TouchableOpacity>
           </View>
-          <AppButton title="Close" onPress={closeBottomSheet} />
+          <AppButton title={CLOSE} onPress={closeBottomSheet} />
         </BottomSheetView>
       </BottomSheet>
     </View>
@@ -156,7 +162,7 @@ const DownloadHeader = ({ navigation }) => {
       >
         <Icon name="arrow-back" style={styles.headerIcon} />
       </TouchableOpacity>
-      <Text style={styles.headerText}>Downloaded</Text>
+      <Text style={styles.headerText}>{DOWNLOADED}</Text>
     </SafeAreaView>
   );
 };

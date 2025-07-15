@@ -17,6 +17,15 @@ import { useDispatch } from 'react-redux';
 import { addProfile } from '../../store/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  ADD_PROFILE,
+  ENTER_PROFILE_NAME_PLACEHOLDER,
+  SAVE_PROFILE,
+  PLEASE_ENTER_A_NAME,
+  CAMERA,
+  GALLERY,
+  CANCEL
+} from '../../utils/strings';
 
 const AddProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -25,34 +34,34 @@ const AddProfile = () => {
   const navigation = useNavigation();
 
   const pickImage = () => {
-    Alert.alert('Select Image', 'Choose an image from gallery or open camera', [
-      {
-        text: 'Camera',
-        onPress: () => {
-          launchCamera({ mediaType: 'photo' }, result => {
-            if (!result.didCancel && result.assets?.length > 0) {
-              setProfileImage(result.assets[0].uri);
-            }
-          });
+    Alert.alert(
+      ADD_PROFILE,
+      'Choose an image from gallery or open camera', [
+        { text: CAMERA,
+          onPress: () => {
+            launchCamera({ mediaType: 'photo' }, result => {
+              if (!result.didCancel && result.assets?.length > 0) {
+                setProfileImage(result.assets[0].uri);
+              }
+            });
+          },
         },
-      },
-      {
-        text: 'Gallery',
-        onPress: () => {
-          launchImageLibrary({ mediaType: 'photo' }, result => {
-            if (!result.didCancel && result.assets?.length > 0) {
-              setProfileImage(result.assets[0].uri);
-            }
-          });
+        { text: GALLERY,
+          onPress: () => {
+            launchImageLibrary({ mediaType: 'photo' }, result => {
+              if (!result.didCancel && result.assets?.length > 0) {
+                setProfileImage(result.assets[0].uri);
+              }
+            });
+          },
         },
-      },
-      { text: 'Cancel', style: 'cancel' },
-    ]);
+        { text: CANCEL, style: 'cancel' },
+      ]);
   };
 
   const handleSave = () => {
     if (!name.trim()) {
-      alert('Please enter a name');
+      alert(PLEASE_ENTER_A_NAME);
       return;
     }
 
@@ -67,7 +76,7 @@ const AddProfile = () => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" size={24} color={colors.textColorWhite} />
           </TouchableOpacity>
-          <Text style={styles.headerText}>Add Profile</Text>
+          <Text style={styles.headerText}>{ADD_PROFILE}</Text>
         </View>
       </SafeAreaView>
 
@@ -91,11 +100,11 @@ const AddProfile = () => {
           onChangeText={setName}
           textInputConfig={{
             placeholderTextColor: colors.placeholderTextColor,
-            placeholder: 'Enter Profile Name',
+            placeholder: ENTER_PROFILE_NAME_PLACEHOLDER,
           }}
         />
 
-        <AppButton title="Save Profile" onPress={handleSave} />
+        <AppButton title={SAVE_PROFILE} onPress={handleSave} />
       </View>
     </View>
   );
