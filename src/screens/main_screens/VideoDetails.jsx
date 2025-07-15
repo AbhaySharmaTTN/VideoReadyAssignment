@@ -21,12 +21,13 @@ import {
   ACTION_ADVENTURE_FANTASY,
   MORE_ELLIPSIS,
   ADD_TO_PLAYLIST_VIDEO,
-  DOWNLOADING,
   CAST,
   RECOMMENDED,
   SEASON,
-  MORE
+  MORE,
 } from '../../utils/strings';
+import { useDispatch } from 'react-redux';
+import { addDownload } from '../../store/userSlice';
 
 const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
@@ -41,10 +42,13 @@ const VideoDetails = () => {
   ];
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [selectedSeason, setSelectedSeason] = useState(1);
 
   const seasons = [1, 2, 3, 4, 5, 6, 7];
+
+  const [downloadText, setDownloadText] = useState('Download');
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -59,12 +63,28 @@ const VideoDetails = () => {
     navigation.pop();
   }
 
-  function goToDownloads() {
+  function goToDownloadsOrDownload() {
+    if (downloadText !== 'Downloaded') {
+      download();
+      return;
+    }
     navigation.navigate(MainRoutes.DOWNLOADS);
   }
 
   function onMediaTilePress() {
     navigation.push(MainRoutes.VIDEO_DETAILS);
+  }
+
+  function download() {
+    setDownloadText('Downloading...');
+    setTimeout(() => {
+      setDownloadText('Downloaded');
+      dispatch(
+        addDownload({
+          movieName: 'Dr. Strange',
+        }),
+      );
+    }, 5000);
   }
 
   const [isPaused, setisPaused] = useState(true);
@@ -122,7 +142,9 @@ const VideoDetails = () => {
 
       <Text style={[styles.text, styles.description]}>
         {loremText}
-        <Text style={[styles.text, { color: colors.appButton }]}>{MORE_ELLIPSIS}</Text>
+        <Text style={[styles.text, { color: colors.appButton }]}>
+          {MORE_ELLIPSIS}
+        </Text>
       </Text>
 
       <View style={styles.directorCountryRelease}>
@@ -140,29 +162,33 @@ const VideoDetails = () => {
       <View style={styles.playlistDownload}>
         <View style={styles.playlistDownloadButtonStyle}>
           <Icon name="playlist-add" size={20} color={colors.textColorWhite} />
-          <Text style={styles.playlistDownloadButtonText}>{ADD_TO_PLAYLIST_VIDEO}</Text>
+          <Text style={styles.playlistDownloadButtonText}>
+            {ADD_TO_PLAYLIST_VIDEO}
+          </Text>
         </View>
         <View style={styles.playlistDownloadButtonStyle}>
           <Icon
-            name="incomplete-circle"
+            name={
+              downloadText === 'Download' ? 'download' : 'incomplete-circle'
+            }
             size={20}
             color={colors.textColorWhite}
           />
-          <TouchableOpacity onPress={goToDownloads}>
+          <TouchableOpacity onPress={goToDownloadsOrDownload}>
             <Text style={styles.playlistDownloadButtonText}>
-              {DOWNLOADING}
+              {downloadText}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={styles.castLISTList}>
+      <View style={styles.castList}>
         <Text style={styles.listHeading}>{CAST}</Text>
         <View style={styles.listContainer}>
           <FlatList
             data={CASTLIST}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <CastLISTItem item={item} />}
+            renderItem={({ item }) => <CastListItem item={item} />}
             horizontal
             showsHorizontalScrollIndicator={false}
           />
@@ -202,6 +228,7 @@ const VideoDetails = () => {
               onPress={onMediaTilePress}
               showEpisodeNumber={true}
               episodeNumber={item}
+              style={styles.episodeMediaTile}
             />
           )}
           horizontal
@@ -226,10 +253,14 @@ const VideoDetails = () => {
   );
 };
 
-const CastLISTItem = ({ item }) => {
+const CastListItem = ({ item }) => {
   return (
-    <View style={styles.castLISTItemContainer}>
-      <Image source={item.image} resizeMode="cover" style={styles.castLISTImage} />
+    <View style={styles.castListItemContainer}>
+      <Image
+        source={item.image}
+        resizeMode="cover"
+        style={styles.castListImage}
+      />
       <Text style={styles.castLISTName}>{item.name}</Text>
     </View>
   );
@@ -346,7 +377,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  castLISTList: {
+  castList: {
     paddingHorizontal: 10,
     marginVertical: 15,
   },
@@ -356,14 +387,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: 4,
   },
-  castLISTItemContainer: {
+  castListItemContainer: {
     margin: 4,
     width: 80,
     alignItems: 'center',
-    justifyContent: 'flex-start',
   },
 
-  castLISTImage: {
+  castListImage: {
     width: 70,
     height: 70,
     borderRadius: 35,
@@ -378,7 +408,7 @@ const styles = StyleSheet.create({
   },
   seasonSelectorContainer: {
     paddingHorizontal: 10,
-    marginTop: 10,
+    marginTop: 5,
   },
 
   seasonListContent: {
@@ -386,27 +416,23 @@ const styles = StyleSheet.create({
   },
 
   seasonItem: {
-    backgroundColor: colors.appButton,
+    backgroundColor: '#052c52',
     color: colors.textColorWhite,
-    paddingVertical: 6,
-    paddingHorizontal: 20,
     borderRadius: 20,
     fontSize: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 16,
   },
   episodeListContainer: {
     paddingHorizontal: 10,
     marginVertical: 10,
   },
   selectedSeasonItem: {
-    backgroundColor: colors.textColorWhite,
-    color: colors.appButton,
+    backgroundColor: colors.appButton,
+    color: colors.textColorWhite,
     fontWeight: 'bold',
-  },
-  episodeImage: {
-    width: width * 0.3 - 15,
-    height: height * 0.2,
-    borderRadius: 3,
-    marginRight: 10,
   },
   episodeNumber: {
     position: 'absolute',
@@ -428,17 +454,22 @@ const styles = StyleSheet.create({
   },
   recommendedHeaderText: {
     color: colors.textColorWhite,
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   recommendedHeaderMore: {
     color: colors.appButton,
-    fontSize: 16,
+    fontSize: 13,
+    fontWeight: 'bold',
   },
   recomImage: {
-    width: width * 0.45,
-    height: height * 0.13,
+    width: 149,
+    height: 84,
     borderRadius: 5,
     marginRight: 10,
+  },
+  episodeMediaTile: {
+    width: 100,
+    height: 150,
   },
 });

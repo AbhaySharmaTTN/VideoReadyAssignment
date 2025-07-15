@@ -14,6 +14,7 @@ const authSlice = createSlice({
     users: [],
     profiles: [],
     profileImage: null,
+    downloads: [],
   },
   reducers: {
     signUp: (state, action) => {
@@ -184,6 +185,21 @@ const authSlice = createSlice({
     clearError: state => {
       state.error = null;
     },
+    addDownload: (state, action) => {
+      const { movieName } = action.payload;
+
+      const newDownload = {
+        id: Date.now().toString(),
+        movieName,
+        description: 'Action, Adventure',
+      };
+
+      state.downloads.push(newDownload);
+    },
+    removeDownload: (state, action) => {
+      const { id } = action.payload;
+      state.downloads = state.downloads.filter(download => download.id !== id);
+    },
   },
 });
 
@@ -199,6 +215,8 @@ export const {
   setGenre,
   setOnboarding,
   setProfileImage,
+  addDownload,
+  removeDownload,
 } = authSlice.actions;
 
 export default authSlice.reducer;

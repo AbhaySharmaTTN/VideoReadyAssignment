@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Platform, StyleSheet, View } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import { StyleSheet, View } from 'react-native';
 import AppButton from '../../../components/AppButton';
 import CustomTextInput from '../../../components/CustomTextInput';
 import { useNavigation } from '@react-navigation/native';
 import { AuthRoutes } from '../../../utils/Routes';
-import { setError } from '../../../store/userSlice';
 import { sendOTPRequest, verifyOtp } from '../../../utils/firebase';
 
 const SignUpScreen = () => {

@@ -22,8 +22,8 @@ import {
   ACTION_THRILLER_SUSPENSE,
   FLASH_CHANNEL,
   STAY_AT_HOME,
-  EXPLORE,
   MORE,
+  EXPLORE,
 } from '../../utils/strings';
 
 const movieTitlesForList = [1, 2, 3, 4, 5];
@@ -113,7 +113,7 @@ const HomePage = () => {
         </View>
         <View>
           <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>{STAY_AT_HOME}</Text>
+            <Text style={styles.listHeaderText}>{EXPLORE}</Text>
             <TouchableOpacity>
               <Text style={styles.moreTextButton}>{MORE}</Text>
             </TouchableOpacity>
@@ -124,7 +124,7 @@ const HomePage = () => {
             renderItem={() => (
               <MediaTile
                 onPress={onMovieTilePress}
-                style={{ width: 100, height: 150 }}
+                style={{ width: 149, height: 84 }}
               />
             )}
             horizontal
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   movieTitle: {
     textAlign: 'center',
     color: colors.textColorWhite,
-    fontSize: 25,
+    fontSize: 24,
     letterSpacing: 2,
     fontWeight: 'bold',
   },
@@ -183,12 +183,12 @@ const styles = StyleSheet.create({
 
   icon: {
     color: colors.textColorWhite,
-    fontSize: 20,
+    fontSize: 18,
     marginRight: 4,
   },
   iconText: {
     color: colors.textColorWhite,
-    fontSize: 13,
+    fontSize: 10,
   },
   moreDetails: {
     flexDirection: 'row',
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   descriptionText: {
     color: colors.descriptionTextColor,
     textAlign: 'center',
+    fontSize: 13
   },
   listContainer: {
     width: width,
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingTop: 10,
   },
   listHeaderText: {
     color: colors.textColorWhite,
@@ -223,6 +224,7 @@ const styles = StyleSheet.create({
   moreTextButton: {
     color: colors.appButton,
     fontSize: 12,
+    fontWeight: 'bold'
   },
   movieImageTile: {
     width: width * 0.3,

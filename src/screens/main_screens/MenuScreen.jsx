@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { colors } from '../../utils/colors';
-import { MOVIE } from '../../utils/strings';
 
-const Movie = () => {
+const MenuScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{MOVIE}</Text>
+      <Text style={styles.text}>MenuScreen</Text>
     </View>
   );
 };
 
-export default Movie;
+export default MenuScreen;
 
 const styles = StyleSheet.create({
   container: {

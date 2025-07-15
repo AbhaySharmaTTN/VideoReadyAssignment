@@ -42,7 +42,6 @@ const EditUserProfile = () => {
     phoneNumber,
     profileImage,
   } = useSelector(state => state.user);
-  console.log(email);
 
   const [name, setName] = useState(userName);
   const [userEmail, setEmail] = useState(email);

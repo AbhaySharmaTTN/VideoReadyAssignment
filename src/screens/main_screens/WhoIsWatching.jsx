@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -13,14 +13,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppButton from '../../components/AppButton';
 import { colors } from '../../utils/colors';
 import {
-  addProfile,
   removeProfile,
   setProfileImage,
 } from '../../store/userSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
-import { WHO_IS_WATCHING_TITLE, ADD_NEW, EDIT_PROFILE, DONE } from '../../utils/strings';
+import {
+  WHO_IS_WATCHING_TITLE,
+  ADD_NEW,
+  EDIT_PROFILE,
+  DONE,
+} from '../../utils/strings';
 
 const screenWidth = Dimensions.get('window').width;
 const itemSize = screenWidth / 2 - 20;
@@ -31,13 +35,21 @@ const WhoIsWatching = () => {
 
   const profiles = useSelector(state => state.user.profiles);
   const [editMode, setEditMode] = useState(false);
+  const [displayData, setDisplayData] = useState([]);
+
+  useEffect(() => {
+    if (profiles.length == 4) {
+      setDisplayData(profiles);
+    } else {
+      setDisplayData([...profiles, { isAddNew: true }]);
+    }
+  }, [profiles]);
 
   const handleDeleteProfile = profileName => {
     dispatch(removeProfile({ profileName }));
   };
 
   const addProfileHandler = () => {
-    // dispatch(addProfile({ profileName: 'Abhay' }));
     navigation.navigate(MainRoutes.ADD_PROFILE);
   };
 
@@ -71,8 +83,6 @@ const WhoIsWatching = () => {
       />
     );
   };
-
-  const displayData = [...profiles, { isAddNew: true }];
 
   return (
     <SafeAreaView style={styles.container}>

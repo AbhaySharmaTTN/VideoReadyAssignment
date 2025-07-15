@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   dotWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 50,
+    marginBottom: 30,
   },
   dot: {
     width: 4,

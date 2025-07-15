@@ -67,10 +67,6 @@ const Profiles = () => {
     navigation.navigate(MainRoutes.ADD_PROFILE);
   }
 
-  function giveGenreList() {
-    return genre.filter(g => g !== 'Add Genre');
-  }
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -86,7 +82,7 @@ const Profiles = () => {
       <View style={styles.profileRow}>
         <FlatList
           data={profileNames}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item + index}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.profileRow}
@@ -137,18 +133,19 @@ const Profiles = () => {
         {genre.map((item, index) => {
           if (item === 'Add Genre') {
             return (
-              <TouchableOpacity
-                key={index}
-                style={styles.genreAddBox}
-                onPress={() => {
-                //   const list = giveGenreList();
-                  navigation.navigate(MainRoutes.GENRE, {
-                    genres: userGenre,
-                  });
-                }}
-              >
-                <Text style={styles.addIcon}>+</Text>
-              </TouchableOpacity>
+              <View key={index}>
+                <TouchableOpacity
+                  key={index}
+                  style={styles.genreAddBox}
+                  onPress={() => {
+                    navigation.navigate(MainRoutes.GENRE, {
+                      genres: userGenre,
+                    });
+                  }}
+                >
+                  <Text style={styles.addIcon}>+</Text>
+                </TouchableOpacity>
+              </View>
             );
           }
 
@@ -160,6 +157,9 @@ const Profiles = () => {
                 resizeMode="cover"
               />
               <Text style={styles.genreText}>{item.title}</Text>
+              <View style={styles.closeIconContainer}>
+                <Icon name="close" style={styles.closeIcon} />
+              </View>
             </View>
           );
         })}
@@ -234,27 +234,27 @@ const styles = StyleSheet.create({
   },
   genreCard: {
     width: gridItemSize - 5,
-    alignItems: 'center',
     backgroundColor: '#001C37',
     padding: 3,
     borderRadius: 8,
+    height: 132,
   },
   genreImage: {
     width: '100%',
-    height: gridItemSize - 10,
+    height: 104,
     borderRadius: 8,
   },
   genreText: {
-    color: colors.textColorWhite,
+    color: colors.descriptionTextColor,
     padding: 6,
-    fontSize: 13,
+    fontSize: 12,
     textAlign: 'left',
   },
   genreAddBox: {
-    width: gridItemSize,
-    height: gridItemSize + 20,
+    width: gridItemSize - 5,
+    height: gridItemSize + 12,
     backgroundColor: '#122436',
-    borderRadius: 5,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -274,5 +274,19 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: colors.textColorWhite,
+  },
+  closeIcon: {
+    color: '#919DA7',
+    fontSize: 12,
+  },
+  closeIconContainer: {
+    position: 'absolute',
+    right: 8,
+    top: 8,
+    backgroundColor: 'rgba(145, 157, 167, 0.2)',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 2,
+    borderColor: '#919DA7',
   },
 });

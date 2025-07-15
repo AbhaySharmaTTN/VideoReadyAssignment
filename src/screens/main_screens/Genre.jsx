@@ -1,5 +1,4 @@
 import {
-  Alert,
   Dimensions,
   FlatList,
   Image,
@@ -17,7 +16,6 @@ import AppButton from '../../components/AppButton';
 import { setGenre, setOnboarding } from '../../store/userSlice';
 import {
   useNavigation,
-  useNavigationState,
   useRoute,
 } from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';

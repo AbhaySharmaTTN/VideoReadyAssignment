@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useMemo,
   useRef,
   useLayoutEffect,
   useState,
@@ -8,7 +7,6 @@ import React, {
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   FlatList,
   Image,
@@ -20,40 +18,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../utils/colors';
 import AppButton from '../../components/AppButton';
-import { MainRoutes } from '../../utils/Routes';
-import {
-  DELETE,
-  REDOWNLOAD,
-  CLOSE,
-  DOWNLOADED
-} from '../../utils/strings';
-
-const movieTitles = [
-  {
-    id: 1,
-    title: 'Dr. Strange',
-    image: require('../../../assets/Intro1.png'),
-    description: 'Action, Adventure, Superhero',
-  },
-  {
-    id: 2,
-    title: 'Avatar',
-    image: require('../../../assets/Intro2.png'),
-    description: 'Action, Adventure',
-  },
-  {
-    id: 3,
-    title: 'Us',
-    image: require('../../../assets/Intro3.png'),
-    description: 'Horror',
-  },
-];
+import { DELETE, REDOWNLOAD, CLOSE, DOWNLOADS } from '../../utils/strings';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeDownload } from '../../store/userSlice';
 
 const Downloads = () => {
   const navigation = useNavigation();
   const bottomSheetRef = useRef(null);
+  const dispatch = useDispatch();
 
-  const [movieList, setMovieList] = useState(movieTitles);
+  const downloads = useSelector(state => state.user.downloads);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -74,31 +48,33 @@ const Downloads = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   function onDeleteClick() {
-    const newList = movieList.filter(movie => movie.id !== selectedMovie);
-    setMovieList(newList);
-    setSelectedMovie(null);
+    dispatch(removeDownload({ id: selectedMovie }));
     closeBottomSheet();
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.downloadsList}>
-        <FlatList
-          data={movieList}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => {
-            return (
-              <View style={styles.renderItemViewContainer}>
-                <MovieItem
-                  item={item}
-                  onMenuClick={() => handleOpenBottomSheet(item.id)}
-                />
-                <View style={styles.divider} />
-              </View>
-            );
-          }}
-        />
-      </View>
+      {!downloads.length ? (
+        <NoDownloads />
+      ) : (
+        <View style={styles.downloadsList}>
+          <FlatList
+            data={downloads}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => {
+              return (
+                <View style={styles.renderItemViewContainer}>
+                  <MovieItem
+                    item={item}
+                    onMenuClick={() => handleOpenBottomSheet(item.id)}
+                  />
+                  <View style={styles.divider} />
+                </View>
+              );
+            }}
+          />
+        </View>
+      )}
 
       <BottomSheet
         ref={bottomSheetRef}
@@ -128,17 +104,25 @@ const Downloads = () => {
   );
 };
 
+const NoDownloads = () => {
+  return (
+    <View style={styles.noDownloadsContainer}>
+      <Text style={styles.text}>No Downloads</Text>
+    </View>
+  );
+};
+
 const MovieItem = ({ item, onMenuClick }) => {
   return (
     <View style={styles.movieItemContainer}>
       <View style={styles.imageAndTitleContainer}>
         <Image
-          source={item.image}
+          source={require('../../../assets/Intro1.png')}
           style={styles.movieImage}
           resizeMode="cover"
         />
         <View style={styles.titleAndDescription}>
-          <Text style={styles.titleText}>{item.title}</Text>
+          <Text style={styles.titleText}>{item.movieName}</Text>
           <Text style={styles.descriptionText}>{item.description}</Text>
         </View>
       </View>
@@ -162,7 +146,7 @@ const DownloadHeader = ({ navigation }) => {
       >
         <Icon name="arrow-back" style={styles.headerIcon} />
       </TouchableOpacity>
-      <Text style={styles.headerText}>{DOWNLOADED}</Text>
+      <Text style={styles.headerText}>{DOWNLOADS}</Text>
     </SafeAreaView>
   );
 };
@@ -264,5 +248,10 @@ const styles = StyleSheet.create({
     width: '35%',
     fontSize: 20,
     color: colors.textColorWhite,
+  },
+  noDownloadsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
