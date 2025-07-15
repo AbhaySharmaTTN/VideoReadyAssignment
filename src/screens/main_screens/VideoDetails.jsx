@@ -10,10 +10,8 @@ import {
 } from 'react-native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import VideoReadyHeader from '../../components/VideoReadyHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from '../../utils/colors';
-import LinearGradient from 'react-native-linear-gradient';
 import VideoReadyLogoHeader from '../../components/VideoReadyLogoHeader';
 import Video from 'react-native-video';
 import { MainRoutes } from '../../utils/Routes';
@@ -34,7 +32,7 @@ const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
 
 const VideoDetails = () => {
-  const CAST = [
+  const CASTLIST = [
     { name: 'HoYeon Jung', image: require('../../../assets/profileIcon.png') },
     { name: 'Lee Jung-jae', image: require('../../../assets/profileIcon.png') },
     { name: 'Gong Yoo', image: require('../../../assets/profileIcon.png') },
@@ -158,13 +156,13 @@ const VideoDetails = () => {
         </View>
       </View>
 
-      <View style={styles.castList}>
+      <View style={styles.castLISTList}>
         <Text style={styles.listHeading}>{CAST}</Text>
         <View style={styles.listContainer}>
           <FlatList
-            data={CAST}
+            data={CASTLIST}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <CastItem item={item} />}
+            renderItem={({ item }) => <CastLISTItem item={item} />}
             horizontal
             showsHorizontalScrollIndicator={false}
           />
@@ -228,11 +226,11 @@ const VideoDetails = () => {
   );
 };
 
-const CastItem = ({ item }) => {
+const CastLISTItem = ({ item }) => {
   return (
-    <View style={styles.castItemContainer}>
-      <Image source={item.image} resizeMode="cover" style={styles.castImage} />
-      <Text style={styles.castName}>{item.name}</Text>
+    <View style={styles.castLISTItemContainer}>
+      <Image source={item.image} resizeMode="cover" style={styles.castLISTImage} />
+      <Text style={styles.castLISTName}>{item.name}</Text>
     </View>
   );
 };
@@ -348,7 +346,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 10,
   },
-  castList: {
+  castLISTList: {
     paddingHorizontal: 10,
     marginVertical: 15,
   },
@@ -358,21 +356,21 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: 4,
   },
-  castItemContainer: {
+  castLISTItemContainer: {
     margin: 4,
     width: 80,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
 
-  castImage: {
+  castLISTImage: {
     width: 70,
     height: 70,
     borderRadius: 35,
     marginBottom: 6,
   },
 
-  castName: {
+  castLISTName: {
     color: colors.textColorWhite,
     fontSize: 12,
     textAlign: 'center',
