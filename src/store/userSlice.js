@@ -83,7 +83,7 @@ const authSlice = createSlice({
     },
 
     updateUserDetails: (state, action) => {
-      const { newEmail, name, password } = action.payload;
+      const { email, name, password } = action.payload;
       state.error = null;
 
       const user = state.users.find(u => u.email === state.email);
@@ -92,14 +92,14 @@ const authSlice = createSlice({
         return;
       }
 
-      if (newEmail !== user.email) {
-        const emailTaken = state.users.some(u => u.email === newEmail);
+      if (email !== user.email) {
+        const emailTaken = state.users.some(u => u.email === email);
         if (emailTaken) {
           state.error = 'Email already in use';
           return;
         }
-        user.email = newEmail;
-        state.email = newEmail;
+        user.email = email;
+        state.email = email;
       }
 
       if (name !== undefined) {

@@ -23,7 +23,7 @@ import {
   FLASH_CHANNEL,
   STAY_AT_HOME,
   EXPLORE,
-  MORE
+  MORE,
 } from '../../utils/strings';
 
 const movieTitlesForList = [1, 2, 3, 4, 5];
@@ -65,9 +65,7 @@ const HomePage = () => {
               <Text style={styles.iconText}>{ADD_TO_PLAYLIST}</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.descriptionText}>
-            {ACTION_THRILLER_SUSPENSE}
-          </Text>
+          <Text style={styles.descriptionText}>{ACTION_THRILLER_SUSPENSE}</Text>
         </View>
       </View>
       <View style={styles.listContainer}>
@@ -81,7 +79,12 @@ const HomePage = () => {
           <FlatList
             data={movieTitlesForList}
             keyExtractor={item => item}
-            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
+            renderItem={() => (
+              <MediaTile
+                onPress={onMovieTilePress}
+                style={{ height: 84, width: 149 }}
+              />
+            )}
             horizontal
             contentContainerStyle={{ padding: 8 }}
             showsHorizontalScrollIndicator={false}
@@ -97,7 +100,12 @@ const HomePage = () => {
           <FlatList
             data={movieTitlesForList}
             keyExtractor={item => item}
-            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
+            renderItem={() => (
+              <MediaTile
+                onPress={onMovieTilePress}
+                style={{ width: 100, height: 150 }}
+              />
+            )}
             horizontal
             contentContainerStyle={{ padding: 8 }}
             showsHorizontalScrollIndicator={false}
@@ -105,7 +113,7 @@ const HomePage = () => {
         </View>
         <View>
           <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>{EXPLORE}</Text>
+            <Text style={styles.listHeaderText}>{STAY_AT_HOME}</Text>
             <TouchableOpacity>
               <Text style={styles.moreTextButton}>{MORE}</Text>
             </TouchableOpacity>
@@ -113,7 +121,12 @@ const HomePage = () => {
           <FlatList
             data={movieTitlesForList}
             keyExtractor={item => item}
-            renderItem={() => <MediaTile onPress={onMovieTilePress} />}
+            renderItem={() => (
+              <MediaTile
+                onPress={onMovieTilePress}
+                style={{ width: 100, height: 150 }}
+              />
+            )}
             horizontal
             contentContainerStyle={{ padding: 8 }}
             showsHorizontalScrollIndicator={false}
@@ -204,7 +217,7 @@ const styles = StyleSheet.create({
   },
   listHeaderText: {
     color: colors.textColorWhite,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   moreTextButton: {

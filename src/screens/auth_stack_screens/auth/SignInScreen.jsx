@@ -37,16 +37,20 @@ const SignInScreen = () => {
       <CustomTextInput
         label="Email / Mobile Number"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={text => {
+            setError('')
+            setEmail(text)
+        }}
         error={error}
-        showErrorText={true}
       />
       <CustomTextInput
         label="Password"
         value={password}
-        onChangeText={setPassword}
+        onChangeText={text => {
+            setError('')
+            setPassword(text)
+        }}
         error={error}
-        showErrorText={true}
         textInputConfig={{
           secureTextEntry: true,
         }}
@@ -54,6 +58,7 @@ const SignInScreen = () => {
       <Text style={styles.errorText}>
         {errorFromStateMessage ? errorFromStateMessage : ''}
       </Text>
+      <Text style={styles.errorText}>{error ? error : ''}</Text>
       <AppButton title="Sign In" onPress={handleSignIn} />
       <TouchableOpacity>
         <Text style={styles.forgotPasswordText}>Forgot Password ?</Text>
@@ -73,6 +78,7 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     color: colors.textColorBlue,
     alignSelf: 'center',
+    marginTop: 10,
   },
   errorText: {
     color: colors.errorColor,

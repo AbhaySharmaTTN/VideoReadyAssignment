@@ -14,14 +14,15 @@ const MediaTile = ({
   onPress,
   episodeNumber,
   showEpisodeNumber = false,
+  style,
 }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      style={
-        showEpisodeNumber ? styles.episodeContainer : styles.movieImageTile
-      }
+      style={[
+        showEpisodeNumber ? styles.episodeContainer : styles.movieImageTile,style
+      ]}
     >
       <Image
         source={require('../../assets/movieImage.png')}

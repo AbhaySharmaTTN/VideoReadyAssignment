@@ -81,3 +81,4 @@ export const GENRE_LIST = [
   'Adventure',
   'Music',
 ];
+export const DONE = "Done"

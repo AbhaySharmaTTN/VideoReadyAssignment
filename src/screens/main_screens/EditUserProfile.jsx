@@ -31,63 +31,67 @@ import {
   VALIDATION_EMAIL,
   CAMERA,
   GALLERY,
-  CANCEL
+  CANCEL,
 } from '../../utils/strings';
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();
   const {
     name: userName,
-    email: userEmail,
+    email,
     phoneNumber,
     profileImage,
   } = useSelector(state => state.user);
+  console.log(email);
 
   const [name, setName] = useState(userName);
-  const [email, setEmail] = useState(userEmail);
+  const [userEmail, setEmail] = useState(email);
   const [image, setImage] = useState(profileImage);
 
   const navigation = useNavigation();
 
   const pickImage = () => {
-    Alert.alert(
-      PICK_IMAGE,
-      'Choose an image from gallery or open camera', [
-        { text: CAMERA,
-          onPress: () => {
-            launchCamera({ mediaType: 'photo' }, result => {
-              if (!result.didCancel && result.assets?.length > 0) {
-                setImage(result.assets[0].uri);
-              }
-            });
-          },
+    Alert.alert(PICK_IMAGE, 'Choose an image from gallery or open camera', [
+      {
+        text: CAMERA,
+        onPress: () => {
+          launchCamera({ mediaType: 'photo' }, result => {
+            if (!result.didCancel && result.assets?.length > 0) {
+              setImage(result.assets[0].uri);
+            }
+          });
         },
-        { text: GALLERY,
-          onPress: () => {
-            launchImageLibrary({ mediaType: 'photo' }, result => {
-              if (!result.didCancel && result.assets?.length > 0) {
-                setImage(result.assets[0].uri);
-              }
-            });
-          },
+      },
+      {
+        text: GALLERY,
+        onPress: () => {
+          launchImageLibrary({ mediaType: 'photo' }, result => {
+            if (!result.didCancel && result.assets?.length > 0) {
+              setImage(result.assets[0].uri);
+            }
+          });
         },
-        { text: CANCEL, style: 'cancel' },
-      ]);
+      },
+      { text: CANCEL, style: 'cancel' },
+    ]);
   };
 
+  const [error, setError] = useState('');
+
   const handleSave = () => {
-    if (!name || !email) {
-      Alert.alert('Validation', VALIDATION_NAME_EMAIL_REQUIRED);
+    if (!name || !userEmail) {
+      setError(VALIDATION_NAME_EMAIL_REQUIRED);
       return;
     }
 
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(userEmail)) {
       Alert.alert('Validation', VALIDATION_EMAIL);
       return;
     }
-    dispatch(setProfileImage({ image: image }));
 
-    dispatch(updateUserDetails({ name, email }));
+    dispatch(setProfileImage({ image }));
+
+    dispatch(updateUserDetails({ name, email: userEmail }));
     navigation.goBack();
   };
 
@@ -119,16 +123,18 @@ const EditUserProfile = () => {
         value={name}
         onChangeText={setName}
         textInputConfig={{ placeholder: NAME_PLACEHOLDER }}
+        error={error}
       />
 
       <CustomTextInput
         label={EMAIL}
-        value={email}
+        value={userEmail}
         onChangeText={setEmail}
         textInputConfig={{
           placeholder: EMAIL_PLACEHOLDER,
           keyboardType: 'email-address',
         }}
+        error={error}
       />
 
       <CustomTextInput
@@ -141,6 +147,7 @@ const EditUserProfile = () => {
         }}
       />
 
+      <Text style={styles.errorText}>{error ? error + '*' : ''}</Text>
       <AppButton title={SAVE_CHANGES} onPress={handleSave} />
     </SafeAreaView>
   );
@@ -187,5 +194,10 @@ const styles = StyleSheet.create({
   },
   imageText: {
     color: colors.textColorWhite,
+  },
+  errorText: {
+    color: colors.errorColor,
+    fontSize: 12,
+    paddingVertical: 4,
   },
 });

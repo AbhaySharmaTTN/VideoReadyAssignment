@@ -12,10 +12,14 @@ import { useDispatch } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../utils/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppButton from '../../components/AppButton';
 import { setGenre, setOnboarding } from '../../store/userSlice';
-import { useNavigation } from '@react-navigation/native';
+import {
+  useNavigation,
+  useNavigationState,
+  useRoute,
+} from '@react-navigation/native';
 import { MainRoutes } from '../../utils/Routes';
 import { GENRE, CONFIRM } from '../../utils/strings';
 
@@ -100,12 +104,29 @@ const genres = [
 const Genre = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const route = useRoute();
 
   const [genreList, setGenreList] = useState(genres);
 
+  useEffect(() => {
+    console.log(route.params);
+    if (route.params?.genres) {
+      const incomingGenres = route.params.genres;
+
+      const updatedGenres = genres.map(g => ({
+        ...g,
+        isChecked: incomingGenres.some(incoming => incoming.title === g.title),
+      }));
+
+      setGenreList(updatedGenres);
+    } else {
+      setGenreList(genres);
+    }
+  }, []);
+
   const toggleChecked = index => {
     const updatedGenres = [...genreList];
-    genres[index].isChecked = !genres[index].isChecked;
+    updatedGenres[index].isChecked = !updatedGenres[index].isChecked;
     setGenreList(updatedGenres);
   };
 
@@ -113,15 +134,25 @@ const Genre = () => {
     const checkedGenres = genreList.filter(gen => gen.isChecked);
     dispatch(setOnboarding());
     dispatch(setGenre({ genre: checkedGenres }));
-    navigation.replace(MainRoutes.MAIN_DRAWER);
+    if (route.params?.genres) {
+      navigation.goBack();
+    } else {
+      navigation.replace(MainRoutes.MAIN_DRAWER);
+    }
   };
+
+  function goBack() {
+    if (route.params?.genres) {
+      navigation.goBack();
+    } else {
+      navigation.replace(MainRoutes.MAIN_DRAWER);
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => navigation.replace(MainRoutes.MAIN_DRAWER)}
-        >
+        <TouchableOpacity onPress={goBack}>
           <Icon name="arrow-back" size={30} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.headerText}>{GENRE}</Text>

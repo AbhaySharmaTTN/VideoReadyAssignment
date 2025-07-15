@@ -8,7 +8,7 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, { useLayoutEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { colors } from '../../utils/colors';
@@ -20,7 +20,7 @@ import {
   ADD_NEW,
   EDIT_PROFILE_BTN,
   FAVOURITE_GENRES,
-  ADD_GENRE
+  ADD_GENRE,
 } from '../../utils/strings';
 
 const Profiles = () => {
@@ -34,12 +34,21 @@ const Profiles = () => {
 
   const userGenre = useSelector(state => state.user.genre);
   const genre = useMemo(() => {
-    return [...userGenre, ADD_GENRE];
+    return [...userGenre, 'Add Genre'];
   }, [userGenre]);
 
   const dispatch = useDispatch();
 
-  const profileNames = useSelector(state => state.user.profiles);
+  const [profileNames, setProfileNames] = useState([]);
+  const profileNamesFromState = useSelector(state => state.user.profiles);
+
+  useEffect(() => {
+    if (profileNamesFromState.length < 4) {
+      setProfileNames([...profileNamesFromState, 'Add new']);
+    } else {
+      setProfileNames(profileNamesFromState);
+    }
+  }, [profileNamesFromState]);
 
   function onEditProfilePress() {
     navigation.navigate(MainRoutes.EDIT_USER_DETAILS);
@@ -56,6 +65,10 @@ const Profiles = () => {
 
   function onAddProfile() {
     navigation.navigate(MainRoutes.ADD_PROFILE);
+  }
+
+  function giveGenreList() {
+    return genre.filter(g => g !== 'Add Genre');
   }
 
   return (
@@ -78,30 +91,38 @@ const Profiles = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.profileRow}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.itemContainer}
-              onPress={() => onProfileClick(item.image)}
-            >
-              <Image
-                source={
-                  item.image
-                    ? { uri: item.image }
-                    : require('../../../assets/profileIcon.png')
-                }
-                style={styles.avatar}
-                resizeMode="contain"
-              />
-              <Text style={styles.nameText}>{item.name}</Text>
-            </TouchableOpacity>
+            <View>
+              {item === 'Add new' ? (
+                <TouchableOpacity
+                  style={styles.itemContainer}
+                  onPress={onAddProfile}
+                >
+                  <Image
+                    source={require('../../../assets/add.png')}
+                    style={styles.avatar}
+                  />
+                  <Text style={styles.addText}>{ADD_NEW}</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.itemContainer}
+                  onPress={() => onProfileClick(item.image)}
+                >
+                  <Image
+                    source={
+                      item.image
+                        ? { uri: item.image }
+                        : require('../../../assets/profileIcon.png')
+                    }
+                    style={styles.avatar}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.nameText}>{item.name}</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           )}
         />
-        <TouchableOpacity style={styles.itemContainer} onPress={onAddProfile}>
-          <Image
-            source={require('../../../assets/add.png')}
-            style={styles.avatar}
-          />
-          <Text style={styles.addText}>{ADD_NEW}</Text>
-        </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={onEditProfilePress} style={styles.editProfile}>
@@ -114,9 +135,18 @@ const Profiles = () => {
 
       <View style={styles.genreGrid}>
         {genre.map((item, index) => {
-          if (item === ADD_GENRE) {
+          if (item === 'Add Genre') {
             return (
-              <TouchableOpacity key={index} style={styles.genreAddBox}>
+              <TouchableOpacity
+                key={index}
+                style={styles.genreAddBox}
+                onPress={() => {
+                //   const list = giveGenreList();
+                  navigation.navigate(MainRoutes.GENRE, {
+                    genres: userGenre,
+                  });
+                }}
+              >
                 <Text style={styles.addIcon}>+</Text>
               </TouchableOpacity>
             );
