@@ -1,3 +1,4 @@
 <resources>
     <color name="launch_screen_background">#001122</color>
+    <color name="bootsplash_background">#001122</color>
 </resources>

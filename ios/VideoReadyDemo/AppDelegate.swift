@@ -3,6 +3,7 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import Firebase
+import RNBootSplash
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
+  
+  func createRootView(withBridge bridge: RCTBridge, moduleName: String, initialProperties: [AnyHashable: Any]?) -> UIView {
+      let rootView = RCTRootView(bridge: bridge, moduleName: moduleName, initialProperties: initialProperties)
+
+      RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView) // ⬅️ initialize the splash screen
+
+      return rootView
+    }
+  
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {

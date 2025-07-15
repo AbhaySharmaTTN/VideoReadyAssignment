@@ -6,6 +6,7 @@ import MainStack from './main_navigator/MainStack';
 import { useSelector } from 'react-redux';
 import { containerRef } from './main_navigator/drawerRef';
 import { colors } from '../utils/colors';
+import BootSplash from 'react-native-bootsplash';
 
 const AppNavigator = () => {
   const loggedIn = useSelector(state => state.user.isLoggedIn);
@@ -13,7 +14,12 @@ const AppNavigator = () => {
     <SafeAreaProvider
       style={{ backgroundColor: colors.appBackground, flex: 1 }}
     >
-      <NavigationContainer ref={containerRef}>
+      <NavigationContainer
+        ref={containerRef}
+        onReady={() => {
+          BootSplash.hide();
+        }}
+      >
         <SafeAreaProvider>
           {loggedIn ? <MainStack /> : <AuthNavigator />}
         </SafeAreaProvider>
