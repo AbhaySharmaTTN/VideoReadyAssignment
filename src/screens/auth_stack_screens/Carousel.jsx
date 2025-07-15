@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthRoutes } from '../../utils/Routes';
+import AppButton from '../../components/AppButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -79,20 +80,27 @@ const Carousel = () => {
           horizontal
           snapToInterval={width}
           decelerationRate="fast"
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           style={styles.flatList}
           bounces={false}
           scrollEnabled={false}
         />
       </View>
 
+      <View style={styles.dotWrapper}>
+        {carouselItems.map((_, idx) => (
+          <View
+            key={idx}
+            style={[styles.dot, currentIndex === idx && styles.activeDot]}
+          />
+        ))}
+      </View>
+
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.button}
+        <AppButton
+          title="GET ENTERTAINED"
           onPress={() => navigation.replace(AuthRoutes.LOGIN_SIGNUP)}
-        >
-          <Text style={styles.buttonText}>GET ENTERTAINED</Text>
-        </TouchableOpacity>
+        />
         <TouchableOpacity
           style={styles.skipButton}
           onPress={() => navigation.replace(AuthRoutes.LOGIN_SIGNUP)}
@@ -227,5 +235,23 @@ const styles = StyleSheet.create({
   skipText: {
     color: colors.appButton,
     fontSize: 14,
+  },
+  dotWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 50,
+  },
+  dot: {
+    width: 4,
+    height: 4,
+    borderRadius: 3,
+    backgroundColor: '#888',
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    width: 11,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#fff',
   },
 });
