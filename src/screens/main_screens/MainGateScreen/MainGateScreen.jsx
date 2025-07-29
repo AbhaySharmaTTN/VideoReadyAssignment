@@ -1,9 +1,10 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
-import { colors } from '../../utils/colors';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { MainRoutes } from '../../utils/Routes';
+import { MainRoutes } from '../../../utils/Routes';
+import { styles } from './Styles';
+import { colors } from '../../../utils/colors';
 
 const MainGateScreen = () => {
   const navigation = useNavigation();
@@ -34,13 +35,3 @@ const MainGateScreen = () => {
 
 export default MainGateScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingIndicator: {
-    color: colors.appButton,
-  },
-});

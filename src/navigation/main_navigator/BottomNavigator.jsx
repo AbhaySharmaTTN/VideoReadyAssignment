@@ -1,13 +1,13 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomePage from '../../screens/main_screens/HomePage';
-import Movie from '../../screens/main_screens/Movie';
-import Kids from '../../screens/main_screens/Kids';
-import LiveTV from '../../screens/main_screens/LiveTV';
+import HomePage from '../../screens/main_screens/HomePage/HomePage';
+import Movie from '../../screens/main_screens/LiveTvMenuMovieKids/Movie';
+import Kids from '../../screens/main_screens/LiveTvMenuMovieKids/Kids';
+import LiveTV from '../../screens/main_screens/LiveTvMenuMovieKids/LiveTV';
 import { colors } from '../../utils/colors';
 import { MainRoutes } from '../../utils/Routes';
 import VideoReadyHeader from '../../components/VideoReadyHeader';
-import MenuScreen from '../../screens/main_screens/MenuScreen';
+import MenuScreen from '../../screens/main_screens/LiveTvMenuMovieKids/MenuScreen';
 
 const Tab = createBottomTabNavigator();
 

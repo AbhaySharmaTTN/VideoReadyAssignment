@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import CustomTextInput from '../../components/CustomTextInput';
-import AppButton from '../../components/AppButton';
+import CustomTextInput from '../../../components/CustomTextInput';
+import AppButton from '../../../components/AppButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfileImage, updateUserDetails } from '../../store/userSlice';
-import { colors } from '../../utils/colors';
+import { setProfileImage, updateUserDetails } from '../../../store/userSlice';
+import { colors } from '../../../utils/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   View,
@@ -16,7 +16,7 @@ import {
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { isValidEmail } from '../../utils/validators';
+import { isValidEmail } from '../../../utils/validators';
 import {
   EDIT_PROFILE,
   PICK_IMAGE,
@@ -32,7 +32,8 @@ import {
   CAMERA,
   GALLERY,
   CANCEL,
-} from '../../utils/strings';
+} from '../../../utils/strings';
+import { styles } from './Styles';
 
 const EditUserProfile = () => {
   const dispatch = useDispatch();
@@ -154,49 +155,3 @@ const EditUserProfile = () => {
 
 export default EditUserProfile;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: colors.appBackground,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 24,
-  },
-  backButton: {
-    padding: 4,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.textColorWhite,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-  placeholderImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#2780EA4D',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imageText: {
-    color: colors.textColorWhite,
-  },
-  errorText: {
-    color: colors.errorColor,
-    fontSize: 12,
-    paddingVertical: 4,
-  },
-});

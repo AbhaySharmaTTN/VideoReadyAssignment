@@ -1,20 +1,18 @@
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Image,
-  TextInput,
   Alert,
 } from 'react-native';
 import React, { useState } from 'react';
-import { colors } from '../../utils/colors';
-import AppButton from '../../components/AppButton';
+import { colors } from '../../../utils/colors';
+import AppButton from '../../../components/AppButton';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import CustomTextInput from '../../components/CustomTextInput';
+import CustomTextInput from '../../../components/CustomTextInput';
 import { useDispatch } from 'react-redux';
-import { addProfile } from '../../store/userSlice';
+import { addProfile } from '../../../store/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -25,7 +23,8 @@ import {
   CAMERA,
   GALLERY,
   CANCEL
-} from '../../utils/strings';
+} from '../../../utils/strings';
+import { styles } from './Styles';
 
 const AddProfile = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -87,7 +86,7 @@ const AddProfile = () => {
               source={
                 profileImage
                   ? { uri: profileImage }
-                  : require('../../../assets/profileIcon.png')
+                  : require('../../../../assets/profileIcon.png')
               }
               style={styles.profileImage}
             />
@@ -112,72 +111,3 @@ const AddProfile = () => {
 
 export default AddProfile;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.appBackground,
-  },
-  innerContainer: {
-    padding: 20,
-  },
-  imageContainer: {
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-  profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-  },
-  placeholder: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#2c2c2c',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pickImageText: {
-    color: colors.placeholderTextColor,
-    fontSize: 12,
-    marginTop: 6,
-  },
-  input: {
-    width: '80%',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.placeholderTextColor,
-    fontSize: 16,
-    color: colors.textColorWhite,
-    paddingVertical: 8,
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-  nameText: {
-    color: colors.textColorWhite,
-    textAlign: 'center',
-    marginBottom: 25,
-    fontWeight: 'bold',
-  },
-  imageAndTextContainer: {
-    width: '100%',
-    justifyContent: 'center',
-  },
-  header: {
-    backgroundColor: colors.appHeaderColor,
-    width: '100%',
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-  },
-
-  headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  headerText: {
-    color: colors.textColorWhite,
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 12,
-  },
-});

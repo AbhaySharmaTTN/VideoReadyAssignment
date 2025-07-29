@@ -10,24 +10,21 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
-import AppButton from '../../components/AppButton';
-import { colors } from '../../utils/colors';
+import AppButton from '../../../components/AppButton';
 import {
   removeProfile,
   setProfileImage,
-} from '../../store/userSlice';
+} from '../../../store/userSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
-import { MainRoutes } from '../../utils/Routes';
+import { MainRoutes } from '../../../utils/Routes';
 import {
   WHO_IS_WATCHING_TITLE,
   ADD_NEW,
   EDIT_PROFILE,
   DONE,
-} from '../../utils/strings';
-
-const screenWidth = Dimensions.get('window').width;
-const itemSize = screenWidth / 2 - 20;
+} from '../../../utils/strings';
+import { styles } from './Styles';
 
 const WhoIsWatching = () => {
   const dispatch = useDispatch();
@@ -66,7 +63,7 @@ const WhoIsWatching = () => {
           onPress={addProfileHandler}
         >
           <Image
-            source={require('../../../assets/add.png')}
+            source={require('../../../../assets/add.png')}
             style={styles.avatar}
           />
           <Text style={styles.addText}>{ADD_NEW}</Text>
@@ -115,7 +112,7 @@ const ProfileItem = React.memo(({ item, editMode, onDelete, onClick }) => {
           source={
             item.image && item.image !== ''
               ? { uri: item.image }
-              : require('../../../assets/profileIcon.png')
+              : require('../../../../assets/profileIcon.png')
           }
           style={styles.avatar}
         />
@@ -133,57 +130,4 @@ const ProfileItem = React.memo(({ item, editMode, onDelete, onClick }) => {
       <Text style={styles.nameText}>{item.name}</Text>
     </View>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.appBackground,
-    paddingHorizontal: 20,
-    paddingTop: 20,
-  },
-  title: {
-    fontSize: 24,
-    color: 'white',
-    alignSelf: 'center',
-    marginBottom: 20,
-    fontFamily: 'Roboto-Bold',
-  },
-  grid: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 40,
-  },
-  itemContainer: {
-    width: itemSize,
-    alignItems: 'center',
-    marginVertical: 16,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 16,
-    marginTop: 8,
-  },
-  addText: {
-    color: '#1E90FF',
-    fontSize: 16,
-    marginTop: 8,
-  },
-  deleteIconContainer: {
-    position: 'absolute',
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgb(1,1,1,0.6)',
-    justifyContent: 'center',
-  },
-  deleteIcon: {
-    color: colors.appButton,
-    alignSelf: 'center',
-  },
 });

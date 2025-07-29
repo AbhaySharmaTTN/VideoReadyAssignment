@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../utils/colors';
-import { LIVETV } from '../../utils/strings';
+import { colors } from '../../../utils/colors';
+import { LIVETV } from '../../../utils/strings';
 
 const LiveTV = () => {
   return (

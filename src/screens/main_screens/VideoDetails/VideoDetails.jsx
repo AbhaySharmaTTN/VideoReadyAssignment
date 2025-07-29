@@ -11,11 +11,11 @@ import {
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { colors } from '../../utils/colors';
-import VideoReadyLogoHeader from '../../components/VideoReadyLogoHeader';
+import { colors } from '../../../utils/colors';
+import VideoReadyLogoHeader from '../../../components/VideoReadyLogoHeader';
 import Video from 'react-native-video';
-import { MainRoutes } from '../../utils/Routes';
-import MediaTile from '../../components/MediaTile';
+import { MainRoutes } from '../../../utils/Routes';
+import MediaTile from '../../../components/MediaTile';
 import {
   S1_E1_AVATAR,
   ACTION_ADVENTURE_FANTASY,
@@ -25,20 +25,21 @@ import {
   RECOMMENDED,
   SEASON,
   MORE,
-} from '../../utils/strings';
+} from '../../../utils/strings';
 import { useDispatch } from 'react-redux';
-import { addDownload } from '../../store/userSlice';
+import { addDownload } from '../../../store/userSlice';
+import { styles } from './Styles';
 
 const loremText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer sit amet dui leo. Sed interdum sapien ac felis malesuada, at tincidunt purus hendrerit. Aliquam erat volutpat. Proin tempus metus a turpis suscipit, non gravida arcu interdum. Cras ultricies, ligula eget fermentum pharetra.';
 
 const VideoDetails = () => {
   const CASTLIST = [
-    { name: 'HoYeon Jung', image: require('../../../assets/profileIcon.png') },
-    { name: 'Lee Jung-jae', image: require('../../../assets/profileIcon.png') },
-    { name: 'Gong Yoo', image: require('../../../assets/profileIcon.png') },
-    { name: 'Lee Yoo-Mi', image: require('../../../assets/profileIcon.png') },
-    { name: 'Park Hae-soo', image: require('../../../assets/profileIcon.png') },
+    { name: 'HoYeon Jung', image: require('../../../../assets/profileIcon.png') },
+    { name: 'Lee Jung-jae', image: require('../../../../assets/profileIcon.png') },
+    { name: 'Gong Yoo', image: require('../../../../assets/profileIcon.png') },
+    { name: 'Lee Yoo-Mi', image: require('../../../../assets/profileIcon.png') },
+    { name: 'Park Hae-soo', image: require('../../../../assets/profileIcon.png') },
   ];
 
   const navigation = useNavigation();
@@ -87,7 +88,6 @@ const VideoDetails = () => {
     }, 5000);
   }
 
-  const [isPaused, setisPaused] = useState(true);
 
   return (
     <ScrollView
@@ -96,30 +96,22 @@ const VideoDetails = () => {
     >
       <View style={styles.imageContainer}>
         <Video
-          source={{ uri: require('../../../assets/vids.mp4') }}
+          source={{ uri: require('../../../../assets/vids.mp4') }}
           style={styles.movieImage}
           resizeMode="cover"
-          paused={isPaused}
+          paused={true}
           repeat
+          controls
         />
 
-        <TouchableOpacity
-          style={styles.backIconContainer}
-          onPress={navigateBack}
-        >
-          <Icon name="arrow-back" size={30} color={colors.textColorWhite} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.centerPlaybutton}
-          onPress={() => setisPaused(prev => !prev)}
-        >
-          <Icon
-            name={isPaused ? 'play-arrow' : 'pause'}
-            size={50}
-            color={colors.textColorWhite}
-          />
-        </TouchableOpacity>
+        {/* {isPaused && (
+          <TouchableOpacity
+            style={styles.backIconContainer}
+            onPress={navigateBack}
+          >
+            <Icon name="arrow-back" size={30} color={colors.textColorWhite} />
+          </TouchableOpacity>
+        )} */}
       </View>
 
       <View style={styles.movieNameContainer}>
@@ -133,7 +125,7 @@ const VideoDetails = () => {
       <View style={styles.ratingSectionContainer}>
         <View style={styles.ratingIMDB}>
           <Text style={styles.text}>8.6</Text>
-          <Image source={require('../../../assets/imdb.png')} />
+          <Image source={require('../../../../assets/imdb.png')} />
           <Text style={styles.text}> | 2h 38m</Text>
         </View>
       </View>
@@ -271,7 +263,7 @@ const RecommendedItem = ({ onPress }) => {
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View>
         <Image
-          source={require('../../../assets/movieImage.png')}
+          source={require('../../../../assets/movieImage.png')}
           style={styles.recomImage}
           resizeMode="cover"
         />
@@ -281,195 +273,3 @@ const RecommendedItem = ({ onPress }) => {
 };
 
 export default VideoDetails;
-
-const { width, height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-  imageContainer: {
-    width: width,
-    height: height * 0.25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  movieImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-  backIconContainer: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 2,
-  },
-  centerPlaybutton: {
-    zIndex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  movieNameContainer: {
-    width: width,
-    padding: 10,
-    flexDirection: 'row',
-  },
-  movieName: {
-    fontSize: 20,
-    color: colors.textColorWhite,
-    fontWeight: 'bold',
-    letterSpacing: 1,
-    flex: 1,
-  },
-  shareAndLikeButtons: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  ratingSectionContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-  },
-  ratingIMDB: {
-    flexDirection: 'row',
-  },
-  text: {
-    color: colors.descriptionTextColor,
-    paddingRight: 3,
-  },
-  textGenre: {
-    color: colors.descriptionTextColor,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-  },
-  description: {
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-  },
-  directorCountryRelease: {
-    paddingHorizontal: 10,
-    paddingBottom: 20,
-  },
-  metaText: {
-    color: colors.descriptionTextColor,
-    marginRight: 15,
-    paddingVertical: 4,
-  },
-  meta: {
-    color: colors.textColorWhite,
-  },
-  playlistDownload: {
-    flexDirection: 'row',
-    marginLeft: 10,
-  },
-  playlistDownloadButtonStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-    marginRight: 30,
-  },
-  playlistDownloadButtonText: {
-    color: colors.textColorWhite,
-  },
-  listHeading: {
-    color: colors.textColorWhite,
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
-  castList: {
-    paddingHorizontal: 10,
-    marginVertical: 15,
-  },
-  listContainer: {
-    width: '100%',
-    backgroundColor: colors.bottomSheetBackgroundColor,
-    borderRadius: 6,
-    padding: 4,
-  },
-  castListItemContainer: {
-    margin: 4,
-    width: 80,
-    alignItems: 'center',
-  },
-
-  castListImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginBottom: 6,
-  },
-
-  castLISTName: {
-    color: colors.textColorWhite,
-    fontSize: 12,
-    textAlign: 'center',
-    flexWrap: 'wrap',
-  },
-  seasonSelectorContainer: {
-    paddingHorizontal: 10,
-    marginTop: 5,
-  },
-
-  seasonListContent: {
-    gap: 10,
-  },
-
-  seasonItem: {
-    backgroundColor: '#052c52',
-    color: colors.textColorWhite,
-    borderRadius: 20,
-    fontSize: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 5,
-    paddingHorizontal: 16,
-  },
-  episodeListContainer: {
-    paddingHorizontal: 10,
-    marginVertical: 10,
-  },
-  selectedSeasonItem: {
-    backgroundColor: colors.appButton,
-    color: colors.textColorWhite,
-    fontWeight: 'bold',
-  },
-  episodeNumber: {
-    position: 'absolute',
-    top: 5,
-    left: 5,
-    backgroundColor: colors.textColorWhite,
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    borderRadius: 3,
-    fontWeight: '600',
-  },
-  recommendedContainer: {
-    padding: 10,
-  },
-  recommendedHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  recommendedHeaderText: {
-    color: colors.textColorWhite,
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  recommendedHeaderMore: {
-    color: colors.appButton,
-    fontSize: 13,
-    fontWeight: 'bold',
-  },
-  recomImage: {
-    width: 149,
-    height: 84,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  episodeMediaTile: {
-    width: 100,
-    height: 150,
-  },
-});

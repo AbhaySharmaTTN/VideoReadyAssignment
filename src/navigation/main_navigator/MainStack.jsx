@@ -2,22 +2,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { MainRoutes } from '../../utils/Routes';
 import { colors } from '../../utils/colors';
 import DrawerNavigator from './DrawerNavigator';
-import VideoReadyHeader from '../../components/VideoReadyHeader';
-import MainGateScreen from '../../screens/main_screens/MainGateScreen';
-import Genre from '../../screens/main_screens/Genre';
-import WhoIsWatching from '../../screens/main_screens/WhoIsWatching';
-import Downloads from '../../screens/main_screens/Downloads';
-import Profiles from '../../screens/main_screens/Profiles';
-import EditUserProfile from '../../screens/main_screens/EditUserProfile';
-import VideoDetails from '../../screens/main_screens/VideoDetails';
 import { useSelector } from 'react-redux';
-import AddProfile from '../../screens/main_screens/AddProfile';
+import MainGateScreen from '../../screens/main_screens/MainGateScreen/MainGateScreen'
+import Genre from '../../screens/main_screens/Genre/Genre'
+import WhoIsWatching from '../../screens/main_screens/WhoIsWatching/WhoIsWatching'
+import AddProfile from '../../screens/main_screens/AddProfile/AddProfile'
+import Downloads from '../../screens/main_screens/Downloads/Downloads'
+import EditUserProfile from '../../screens/main_screens/EditUserProfile/EditUserProfile'
+import VideoDetails from '../../screens/main_screens/VideoDetails/VideoDetails'
 
 const Stack = createStackNavigator();
 
 const MainStack = () => {
-  const isOnboarded = useSelector(state => state.user.isOnboarded);
-  const profiles = useSelector(state => state.user.profiles);
+    
 
   return (
     <Stack.Navigator

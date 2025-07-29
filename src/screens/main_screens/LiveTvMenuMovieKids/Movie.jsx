@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../utils/colors';
-import { MOVIE } from '../../utils/strings';
+import { colors } from '../../../utils/colors';
+import { MOVIE } from '../../../utils/strings';
 
 const Movie = () => {
   return (

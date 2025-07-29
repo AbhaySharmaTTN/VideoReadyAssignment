@@ -5,8 +5,8 @@ import { colors } from '../../utils/colors';
 import BottomNavigator from './BottomNavigator';
 import VideoReadyDrawerContent from '../../components/VideoReadyDrawerContent';
 import VideoReadyHeader from '../../components/VideoReadyHeader';
-import Downloads from '../../screens/main_screens/Downloads';
-import Profiles from '../../screens/main_screens/Profiles';
+import Downloads from '../../screens/main_screens/Downloads/Downloads';
+import Profiles from '../../screens/main_screens/Profiles/Profiles';
 
 const Drawer = createDrawerNavigator();
 
